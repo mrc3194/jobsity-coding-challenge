@@ -4,7 +4,7 @@ import useDimensions from "../useDimensions";
 import useTheme from "../useTheme";
 import usePlatform from "../usePlatform";
 
-const useStyles = (stylesheet: Function, params: any): StyleProp<object> => {
+const useStyles = (stylesheet: Function, params?: any): StyleProp<object> => {
   const { screenWidth, screenHeight } = useDimensions();
   const theme = useTheme();
   const platform = usePlatform();
