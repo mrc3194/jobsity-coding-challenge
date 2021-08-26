@@ -1,0 +1,9 @@
+{
+    "name": "@jobsity/common",
+    "version": "1.0.0",
+    "dependencies": {
+        "@jobsity/hooks": "1.0.0",
+        "@jobsity/ui": "1.0.0"
+    },
+    "private": true
+}
