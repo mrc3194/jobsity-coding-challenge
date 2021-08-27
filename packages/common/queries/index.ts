@@ -14,6 +14,16 @@ const fetchAllSeries = async ({
   }
 };
 
+const fetchSeries = async ({ queryKey }: any) => {
+  try {
+    const { id } = queryKey[1];
+    const response = await fetch(`https://api.tvmaze.com/shows/${id}`);
+    return response.json();
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const fetchSearch = async ({ queryKey }: any) => {
   const { searchTerm } = queryKey[1];
   try {
@@ -32,4 +42,8 @@ export const useFetchSeries = (page: number = 0) => {
 
 export const useSearchSeries = (searchTerm: string) => {
   return useQuery(["searchSeries", { searchTerm }], fetchSearch);
+};
+
+export const useSeries = (id: number) => {
+  return useQuery(["fetchSeries", { id }], fetchSeries);
 };
