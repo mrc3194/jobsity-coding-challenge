@@ -1,18 +1,21 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 import ThemeProvider from "@jobsity/common/ThemeContext";
-import Test from "./components/Test";
+import { QueryClient, QueryClientProvider } from "react-query";
+import RootComponent from "./RootComponent";
+import SearchScreen from "./screens/search";
+
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <ThemeProvider>
-      {/* <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </View> */}
-      <Test />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <SearchScreen />
+        {/* <RootComponent /> */}
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
