@@ -22,7 +22,7 @@ interface Externals {
   imdb: number;
 }
 
-interface Image {
+export interface Image {
   medium: string;
   original: string;
 }
@@ -31,12 +31,12 @@ interface Link {
   href: string;
 }
 
-interface Links {
+export interface Links {
   self?: Link;
   previousepisode: Link;
 }
 
-export interface SeriesObject {
+export interface Series {
   id: number;
   url: string;
   name: string;

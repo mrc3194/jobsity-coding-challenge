@@ -1,10 +1,10 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { SeriesObject } from "../types/queries/series";
+import { Epsiode } from "../types/queries/episodes";
+import { Search } from "../types/queries/search";
+import { Series } from "../types/queries/series";
 
-const fetchAllSeries = async ({
-  queryKey,
-}: any): Promise<SeriesObject[] | void> => {
+const fetchAllSeries = async ({ queryKey }: any): Promise<Series[] | void> => {
   try {
     const { page } = queryKey[1];
     const response = await fetch(`https://api.tvmaze.com/shows?page=${page}`);
@@ -14,7 +14,7 @@ const fetchAllSeries = async ({
   }
 };
 
-const fetchSeries = async ({ queryKey }: any) => {
+const fetchSeries = async ({ queryKey }: any): Promise<Series | void> => {
   try {
     const { id } = queryKey[1];
     const response = await fetch(`https://api.tvmaze.com/shows/${id}`);
@@ -24,7 +24,7 @@ const fetchSeries = async ({ queryKey }: any) => {
   }
 };
 
-const fetchSearch = async ({ queryKey }: any) => {
+const fetchSearch = async ({ queryKey }: any): Promise<Search[] | void> => {
   const { searchTerm } = queryKey[1];
   try {
     const response = await fetch(
@@ -36,7 +36,7 @@ const fetchSearch = async ({ queryKey }: any) => {
   }
 };
 
-const fetchEpisodes = async ({ queryKey }: any) => {
+const fetchEpisodes = async ({ queryKey }: any): Promise<Epsiode[] | void> => {
   const { id } = queryKey[1];
   try {
     const response = await fetch(`https://api.tvmaze.com/shows/${id}/episodes`);
