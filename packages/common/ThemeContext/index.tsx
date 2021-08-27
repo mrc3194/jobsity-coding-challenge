@@ -47,7 +47,7 @@ const themeObject = {
 export const ThemeContext = React.createContext<ThemeContextProps>(themeObject);
 
 export interface ThemeProviderProps {
-  children: React.ReactChild[];
+  children: React.ReactChild[] | React.ReactChild;
 }
 
 const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
