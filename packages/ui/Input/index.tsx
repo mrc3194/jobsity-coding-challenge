@@ -1,10 +1,11 @@
 import React from "react";
 import { View, TextInput, TextInputProps, ViewStyle } from "react-native";
-import { Feather } from "@expo/vector-icons";
 
 import useStyles from "@jobsity/hooks/useStyles";
 
 import { IconsNames } from "@jobsity/common/types/icons";
+
+import Icon from "../Icon";
 
 import classes from "./classes";
 
@@ -28,7 +29,7 @@ const Input = ({
     <View style={[styles.container, { width }]}>
       {leftIcon && (
         <View style={styles.iconContainer}>
-          <Feather name={iconName} size={18} />
+          <Icon name={iconName} size={18} />
         </View>
       )}
       <TextInput style={[styles.textInput, inputStyle]} {...rest} />
