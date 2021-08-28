@@ -55,7 +55,7 @@ export interface Series {
   webChannel?: string;
   dvdCountry?: string;
   externals?: Externals;
-  image: Image;
+  image?: Image;
   summary: string;
   updated: number;
   _links: Links;

@@ -11,7 +11,7 @@ export interface Epsiode {
   airtime: string;
   airstamp: string;
   runtime: number;
-  image: Image;
+  image?: Image;
   summary: string;
   _links: Links;
 }
