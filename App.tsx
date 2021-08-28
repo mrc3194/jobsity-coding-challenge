@@ -5,6 +5,9 @@ import ThemeProvider from "@jobsity/common/ThemeContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import RootComponent from "./RootComponent";
 import SearchScreen from "./screens/search";
+import HomeScreen from "./screens/home";
+import SeriesScreen from "./screens/series";
+import EpisodeScreen from "./screens/episode";
 
 const queryClient = new QueryClient();
 
@@ -12,7 +15,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <SearchScreen />
+        <EpisodeScreen />
         {/* <RootComponent /> */}
       </ThemeProvider>
     </QueryClientProvider>

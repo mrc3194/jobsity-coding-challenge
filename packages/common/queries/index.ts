@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { Epsiode } from "../types/queries/episodes";
+import groupEpisodesBySeason from "../groupEpisodesBySeason";
+import { Episode, Seasons } from "../types/queries/episodes";
 import { Search } from "../types/queries/search";
 import { Series } from "../types/queries/series";
 
@@ -36,10 +37,20 @@ const fetchSearch = async ({ queryKey }: any): Promise<Search[] | void> => {
   }
 };
 
-const fetchEpisodes = async ({ queryKey }: any): Promise<Epsiode[] | void> => {
+const fetchEpisodes = async ({ queryKey }: any): Promise<Seasons[] | any> => {
   const { id } = queryKey[1];
   try {
     const response = await fetch(`https://api.tvmaze.com/shows/${id}/episodes`);
+    const jsonResponse: Episode[] = await response.json();
+    return groupEpisodesBySeason(jsonResponse);
+  } catch (e) {
+    console.error(e);
+  }
+};
+const fetchEpisodeInfo = async ({ queryKey }: any): Promise<Episode | any> => {
+  const { id } = queryKey[1];
+  try {
+    const response = await fetch(`https://api.tvmaze.com/episodes/${id}`);
     return response.json();
   } catch (e) {
     console.error(e);
@@ -60,4 +71,8 @@ export const useSeries = (id: number) => {
 
 export const useEpisodes = (id: number) => {
   return useQuery(["fetchEpisodes", { id }], fetchEpisodes);
+};
+
+export const useEpisodeInfo = (id: number) => {
+  return useQuery(["fetchEpisodeInfo", { id }], fetchEpisodeInfo);
 };

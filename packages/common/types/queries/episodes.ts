@@ -1,6 +1,6 @@
 import { Image, Links } from "./series";
 
-export interface Epsiode {
+export interface Episode {
   id: number;
   url: string;
   name: string;
@@ -14,4 +14,9 @@ export interface Epsiode {
   image?: Image;
   summary: string;
   _links: Links;
+}
+
+export interface Seasons {
+  season: number | string;
+  episodes: Episode[];
 }
