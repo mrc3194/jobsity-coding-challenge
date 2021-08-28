@@ -38,7 +38,7 @@ const SearchScreen = () => {
         width="90%"
         onChangeText={(text: string) => search(text)}
       />
-      <SearchResults query={query} />
+      <SearchResults query={query} searchResults />
     </SafeAreaView>
   );
 };

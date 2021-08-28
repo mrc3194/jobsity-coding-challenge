@@ -14,17 +14,20 @@ const classes = ({ palette }: any) => {
       alignItems: "center",
       paddingVertical: 24,
       paddingHorizontal: 18,
+      overflow: "hidden",
     },
     contentContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
+      paddingVertical: 24,
+    },
+    wrapper: {
+      width: "100%",
+      // flexWrap: "wrap",
       justifyContent: "space-between",
       alignItems: "center",
-      paddingVertical: 24,
       paddingHorizontal: 18,
     },
     scrollView: {
-      flex: 1,
+      // flex: 1,
     },
     poster: {
       marginBottom: 12,

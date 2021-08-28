@@ -2,13 +2,19 @@ import React, { ComponentType } from "react";
 import { View, ActivityIndicator } from "react-native";
 import { UseQueryResult } from "react-query";
 
-type ResultQuery<T> = {
+interface ResultQuery<T> {
   query: UseQueryResult;
   Success: ComponentType<T>;
   Loading?: ComponentType<T>;
-};
+  [propName: string]: any;
+}
 
-const ResultQuery = ({ query, Success, Loading }: ResultQuery<any>) => {
+const ResultQuery = ({
+  query,
+  Success,
+  Loading,
+  ...rest
+}: ResultQuery<any>) => {
   const { isLoading, isError, isSuccess, data } = query;
   if (isLoading) {
     if (Loading) {
@@ -21,7 +27,9 @@ const ResultQuery = ({ query, Success, Loading }: ResultQuery<any>) => {
     );
   }
   if (isSuccess) {
-    return <Success data={data} isLoading={isLoading} isError={isError} />;
+    return (
+      <Success data={data} isLoading={isLoading} isError={isError} {...rest} />
+    );
   }
   return <></>;
 };

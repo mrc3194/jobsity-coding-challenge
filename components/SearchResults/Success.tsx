@@ -1,15 +1,17 @@
-import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import React, { useMemo } from "react";
+import { FlatList, ScrollView, Text, View } from "react-native";
 import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
 import SeriesInfoPoster from "@jobsity/ui/SeriesInfoPoster";
 import { Search } from "@jobsity/common/types/queries/search";
+import { Series } from "@jobsity/common/types/queries/series";
 
-interface SuccessProps {
-  data: Search[];
+interface SuccessProps<T> {
+  data: T[];
+  searchResults?: boolean;
 }
 
-const Success = ({ data }: SuccessProps) => {
+const Success = ({ data, searchResults = false }: SuccessProps<any>) => {
   const styles = useStyles(classes);
   if (data.length === 0) {
     return (
@@ -20,23 +22,59 @@ const Success = ({ data }: SuccessProps) => {
       </View>
     );
   }
+
+  const renderItem = (payload: any) => {
+    if (searchResults) {
+      const series: Search = payload.item;
+      return (
+        <SeriesInfoPoster
+          key={series.show.id}
+          title={series.show.name}
+          imageSource={series.show.image ? series.show.image.medium : null}
+          style={styles.poster}
+        />
+      );
+    }
+    const series: Series = payload.item;
+    return (
+      <SeriesInfoPoster
+        key={series.id}
+        title={series.name}
+        imageSource={series.image ? series.image.medium : null}
+        style={styles.poster}
+      />
+    );
+  };
+
   return (
     <View style={styles.successContainer}>
-      <ScrollView
+      <FlatList
+        columnWrapperStyle={styles.wrapper}
+        renderItem={renderItem}
+        data={data}
+        keyExtractor={(item): string => {
+          return String(searchResults ? item.show.id : item.id);
+        }}
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}
-      >
-        {data.map((series: Search) => {
-          return (
-            <SeriesInfoPoster
-              key={series.show.id}
-              title={series.show.name}
-              imageSource={series.show.image ? series.show.image.medium : null}
-              style={styles.poster}
-            />
-          );
-        })}
-      </ScrollView>
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+      />
+      {/* <ScrollView>
+        {searchResults
+          ? data.map((series: Search) => {})
+          : data.map((series: Series) => {
+              return (
+                <SeriesInfoPoster
+                  key={series.id}
+                  title={series.name}
+                  imageSource={series.image ? series.image.medium : null}
+                  style={styles.poster}
+                />
+              );
+            })}
+      </ScrollView> */}
     </View>
   );
 };

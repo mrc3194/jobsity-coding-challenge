@@ -10,10 +10,21 @@ import Loading from "./Loading";
 
 interface SearchResultsProps {
   query: UseQueryResult;
+  searchResults?: boolean;
 }
 
-const SearchResults = ({ query }: SearchResultsProps) => {
-  return <ResultQuery query={query} Success={Success} Loading={Loading} />;
+const SearchResults = ({
+  query,
+  searchResults = false,
+}: SearchResultsProps) => {
+  return (
+    <ResultQuery
+      query={query}
+      Success={Success}
+      Loading={Loading}
+      searchResults={searchResults}
+    />
+  );
 };
 
 export default SearchResults;

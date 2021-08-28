@@ -9,7 +9,7 @@ const Loading = () => {
   return (
     <View style={styles.loadingContainer}>
       {new Array(6).fill(null).map((_: null, index: number) => (
-        <SeriesInfoPosterLoading style={styles.poster} />
+        <SeriesInfoPosterLoading key={index} style={styles.poster} />
       ))}
     </View>
   );
