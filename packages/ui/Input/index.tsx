@@ -9,12 +9,11 @@ import Icon from "../Icon";
 
 import classes from "./classes";
 
-interface InputProps {
+interface InputProps extends TextInputProps {
   inputStyle?: ViewStyle;
   width?: number | string;
   leftIcon?: boolean;
   iconName?: IconsNames;
-  rest?: TextInputProps;
 }
 
 const Input = ({
