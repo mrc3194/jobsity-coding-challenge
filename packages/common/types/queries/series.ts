@@ -27,7 +27,7 @@ export interface Image {
   original: string;
 }
 
-interface Link {
+export interface Link {
   href: string;
 }
 

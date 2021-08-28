@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import groupEpisodesBySeason from "../groupEpisodesBySeason";
 import { Episode, Seasons } from "../types/queries/episodes";
+import { PersonInfo, PersonSearch } from "../types/queries/person";
 import { Search } from "../types/queries/search";
 import { Series } from "../types/queries/series";
 
@@ -57,6 +58,32 @@ const fetchEpisodeInfo = async ({ queryKey }: any): Promise<Episode | any> => {
   }
 };
 
+const fetchPersonSearch = async ({
+  queryKey,
+}: any): Promise<PersonSearch[] | void> => {
+  const { searchTerm } = queryKey[1];
+  try {
+    const response = await fetch(
+      `https://api.tvmaze.com/search/people?q=${searchTerm}`
+    );
+    return response.json();
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const fetchPerson = async ({ queryKey }: any): Promise<PersonInfo[] | any> => {
+  const { id } = queryKey[1];
+  try {
+    const response = await fetch(
+      `https://api.tvmaze.com/people/${id}/castcredits?embed=show`
+    );
+    return response.json();
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const useFetchSeries = (page: number = 0) => {
   return useQuery(["allSeriesPaginated", { page }], fetchAllSeries);
 };
@@ -75,4 +102,12 @@ export const useEpisodes = (id: number) => {
 
 export const useEpisodeInfo = (id: number) => {
   return useQuery(["fetchEpisodeInfo", { id }], fetchEpisodeInfo);
+};
+
+export const useSearchPerson = (searchTerm: string) => {
+  return useQuery(["searchPerson", { searchTerm }], fetchPersonSearch);
+};
+
+export const usePerson = (id: number) => {
+  return useQuery(["fetchPerson", { id }], fetchPerson);
 };
