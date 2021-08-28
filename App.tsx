@@ -8,6 +8,7 @@ import SearchScreen from "./screens/search";
 import HomeScreen from "./screens/home";
 import SeriesScreen from "./screens/series";
 import EpisodeScreen from "./screens/episode";
+import NavigationStack from "./navigation";
 
 const queryClient = new QueryClient();
 
@@ -15,8 +16,9 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <EpisodeScreen />
+        {/* <EpisodeScreen /> */}
         {/* <RootComponent /> */}
+        <NavigationStack />
       </ThemeProvider>
     </QueryClientProvider>
   );
