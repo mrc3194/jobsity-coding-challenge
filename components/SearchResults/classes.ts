@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+import { CustomStyleSheetProps } from "@jobsity/common/types/styles";
 
-const classes = ({ palette }: any) => {
+const classes = ({ palette }: CustomStyleSheetProps) => {
   return StyleSheet.create({
     successContainer: {
       flex: 1,
