@@ -11,6 +11,7 @@ import useStyles from "@jobsity/hooks/useStyles";
 import Icon from "../Icon";
 import classes from "./classes";
 import useSavedSeries from "@jobsity/hooks/useSavedSeries";
+import NoImage from "../NoImage";
 
 interface SeriesInfoPoster extends TouchableOpacityProps {
   imageSource: string | null;
@@ -43,12 +44,14 @@ const SeriesInfoPoster = ({
       {...rest}
     >
       <View style={styles.imageContainer}>
-        {imageSource && (
+        {imageSource ? (
           <Image
             style={styles.image}
             source={{ uri: imageSource }}
             resizeMode="cover"
           />
+        ) : (
+          <NoImage />
         )}
       </View>
       {saveOption ? (

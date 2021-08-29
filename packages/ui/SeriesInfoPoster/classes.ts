@@ -1,6 +1,11 @@
 import { StyleSheet } from "react-native";
+import { CustomStyleSheetProps } from "@jobsity/common/types/styles";
 
-const classes = ({ screenWidth, screenHeight, palette }: any) => {
+const classes = ({
+  screenWidth,
+  screenHeight,
+  palette,
+}: CustomStyleSheetProps) => {
   return StyleSheet.create({
     container: {
       width: screenWidth * 0.44,
@@ -21,6 +26,7 @@ const classes = ({ screenWidth, screenHeight, palette }: any) => {
       width: "100%",
       height: "100%",
     },
+
     titleContainer: {
       width: "100%",
       height: "22%",
