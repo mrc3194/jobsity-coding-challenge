@@ -17,6 +17,7 @@ export default function App() {
       <AuthProvider>
         <SavedSeriesProvider>
           <ThemeProvider>
+            <StatusBar style="light" translucent />
             <NavigationStack />
           </ThemeProvider>
         </SavedSeriesProvider>

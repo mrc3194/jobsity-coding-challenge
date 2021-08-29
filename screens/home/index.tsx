@@ -24,11 +24,13 @@ const HomeScreen = () => {
           onPress={() => setPage((prevPage) => prevPage - 1)}
           disabled={page === 0 || query.isLoading}
           width="50%"
+          height={54}
         />
         <Button
           title="Next"
           onPress={() => setPage((prevPage) => prevPage + 1)}
           width="50%"
+          height={54}
           disabled={query.isLoading}
         />
       </View>

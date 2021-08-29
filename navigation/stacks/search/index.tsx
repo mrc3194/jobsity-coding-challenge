@@ -9,12 +9,12 @@ import PersonScreen from "../../../screens/person";
 
 const Stack = createStackNavigator();
 
-const SearchStack = (props: any) => {
-  // const {
-  //     route: { params },
-  // } = props;
+const SearchStack = () => {
   return (
-    <Stack.Navigator initialRouteName={NAVIGATIONSCREENS.SEARCH}>
+    <Stack.Navigator
+      screenOptions={{ header: () => null }}
+      initialRouteName={NAVIGATIONSCREENS.SEARCH}
+    >
       <Stack.Screen name={NAVIGATIONSCREENS.SEARCH} component={SearchScreen} />
       <Stack.Screen name={NAVIGATIONSCREENS.SERIES} component={SeriesScreen} />
       <Stack.Screen name={NAVIGATIONSCREENS.PERSON} component={PersonScreen} />
