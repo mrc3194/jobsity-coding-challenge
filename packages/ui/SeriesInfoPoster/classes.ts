@@ -28,6 +28,14 @@ const classes = ({ screenWidth, screenHeight, palette }: any) => {
       alignItems: "flex-start",
       paddingHorizontal: 8,
     },
+    titleContainerWithSaveOption: {
+      width: "100%",
+      height: "22%",
+      justifyContent: "space-between",
+      alignItems: "center",
+      paddingHorizontal: 8,
+      flexDirection: "row",
+    },
     title: {
       fontSize: 14,
       fontWeight: "600",

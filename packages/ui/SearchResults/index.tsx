@@ -14,6 +14,7 @@ interface SuccessProps<T> {
   searchResults?: boolean;
   personResults?: boolean;
   isFlatList?: boolean;
+  saveOption: boolean;
 }
 
 const Success = ({
@@ -21,6 +22,7 @@ const Success = ({
   searchResults = false,
   personResults = false,
   isFlatList = true,
+  saveOption = false,
 }: SuccessProps<any>) => {
   const { navigate } = useNavigation();
   const styles = useStyles(classes);
@@ -72,10 +74,12 @@ const Success = ({
     return (
       <SeriesInfoPoster
         key={series.id + "series"}
+        id={series.id}
         title={series.name}
         imageSource={series.image ? series.image.medium : null}
         style={styles.poster}
         onPress={() => goToSeries(series.id)}
+        saveOption={saveOption}
       />
     );
   };

@@ -28,6 +28,7 @@ const SavedSeriesProvider: React.FC<SavedSeriesProviderProps> = ({
   children,
 }) => {
   const [savedSeries, setSavedSeries] = useState<Series[]>([]);
+
   const saveSeries = (newSeries: Series) => {
     setSavedSeries((prevSeries: Series[]) => {
       prevSeries.push(newSeries);
@@ -38,10 +39,7 @@ const SavedSeriesProvider: React.FC<SavedSeriesProviderProps> = ({
 
   const saveInStorage = async (series: string) => {
     try {
-      await AsyncStorage.setItem(
-        LocalStorageKeys.SAVED_SERIES,
-        JSON.stringify(series)
-      );
+      await AsyncStorage.setItem(LocalStorageKeys.SAVED_SERIES, series);
     } catch (e) {
       console.error("##error", e);
     }
@@ -81,6 +79,7 @@ const SavedSeriesProvider: React.FC<SavedSeriesProviderProps> = ({
         const localStorageSavedSeries = JSON.parse(
           localStorageSavedSeriesResponse
         );
+        console.log(typeof localStorageSavedSeries);
         setSavedSeries([...localStorageSavedSeries]);
       }
     } catch (e) {

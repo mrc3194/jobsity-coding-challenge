@@ -83,7 +83,7 @@ const Success = ({ data, showId }: Props) => {
             showsHorizontalScrollIndicator={false}
           >
             {genres.map((genre: string) => (
-              <View style={styles.dayContainer}>
+              <View key={genre} style={styles.dayContainer}>
                 <Text style={styles.day}>{genre}</Text>
               </View>
             ))}
