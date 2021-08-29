@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+import { CustomStyleSheetProps } from "@jobsity/common/types/styles";
 
-const classes = ({ screenHeight, palette }: any) => {
+const classes = ({ screenHeight, palette }: CustomStyleSheetProps) => {
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -31,6 +32,9 @@ const classes = ({ screenHeight, palette }: any) => {
       padding: 12,
       justifyContent: "flex-end",
       alignItems: "flex-start",
+    },
+    seriesInfoContainer: {
+      width: "100%",
     },
     seriesTitle: {
       color: palette.common.white,

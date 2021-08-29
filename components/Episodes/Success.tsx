@@ -22,7 +22,7 @@ const Success = ({ data }: any) => {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={{ flex: 1 }}
+          style={styles.scrollView}
           contentContainerStyle={styles.contentContainer}
         >
           {data.map((season: any, index: number) => {

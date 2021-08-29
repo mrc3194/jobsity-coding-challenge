@@ -4,7 +4,7 @@ import { Platform } from "react-native";
 const isAndroid = Platform.OS === "android";
 const isiOS = Platform.OS === "ios";
 
-interface usePlatformResponse {
+export interface usePlatformResponse {
   isAndroid: boolean;
   isiOS: boolean;
   OS: string;

@@ -65,6 +65,9 @@ const classes = ({ screenHeight, palette }: any) => {
       justifyContent: "flex-end",
       alignItems: "flex-start",
     },
+    seriesInfoContainer: {
+      width: "100%",
+    },
     seriesTitle: {
       color: palette.common.white,
       fontSize: 22,
