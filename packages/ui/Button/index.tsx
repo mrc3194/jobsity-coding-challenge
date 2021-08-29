@@ -5,6 +5,8 @@ import classes from "./classes";
 
 interface ButtonProps extends TouchableOpacityProps {
   width?: number | string;
+  height?: number | string;
+  borderRightWidth?: number | string;
   textColor?: string;
   backgroundColor?: string;
   title: string;
@@ -14,6 +16,7 @@ interface ButtonProps extends TouchableOpacityProps {
 
 interface buttonStyle {
   width: number | string;
+  height?: number | string;
   backgroundColor?: string;
   borderRightWidth?: number;
   borderColor?: string;
@@ -21,6 +24,7 @@ interface buttonStyle {
 
 const Button = ({
   width = "100%",
+  height,
   backgroundColor = undefined,
   rightDivider = false,
   dividerColor,
@@ -37,8 +41,9 @@ const Button = ({
       objectStyle.borderRightWidth = 1;
       objectStyle.borderColor = dividerColor ? dividerColor : "black";
     }
+    if (height) objectStyle.height = height;
     return objectStyle;
-  }, [backgroundColor, width]);
+  }, [backgroundColor, width, height, rightDivider]);
   return (
     <TouchableOpacity
       style={[
