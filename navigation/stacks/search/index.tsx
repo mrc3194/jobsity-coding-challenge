@@ -4,17 +4,17 @@ import HomeScreen from "../../../screens/home";
 import SearchScreen from "../../../screens/search";
 import SeriesScreen from "../../../screens/series";
 import EpisodeScreen from "../../../screens/episode";
-import { NAVIGATIONSCREENS } from "../../../packages/common/enums/navigation";
+import { NAVIGATIONSCREENS } from "@jobsity/common/enums/navigation";
 
 const Stack = createStackNavigator();
 
-const HomeStack = (props: any) => {
+const SearchStack = (props: any) => {
   // const {
   //     route: { params },
   // } = props;
   return (
-    <Stack.Navigator initialRouteName={NAVIGATIONSCREENS.HOME}>
-      <Stack.Screen name={NAVIGATIONSCREENS.HOME} component={HomeScreen} />
+    <Stack.Navigator initialRouteName={NAVIGATIONSCREENS.SEARCH}>
+      <Stack.Screen name={NAVIGATIONSCREENS.SEARCH} component={SearchScreen} />
       <Stack.Screen name={NAVIGATIONSCREENS.SERIES} component={SeriesScreen} />
       <Stack.Screen
         name={NAVIGATIONSCREENS.EPISODE}
@@ -24,4 +24,4 @@ const HomeStack = (props: any) => {
   );
 };
 
-export default HomeStack;
+export default SearchStack;

@@ -5,6 +5,8 @@ import classes from "./classes";
 import SeriesInfoPoster from "@jobsity/ui/SeriesInfoPoster";
 import { Search } from "@jobsity/common/types/queries/search";
 import { Series } from "@jobsity/common/types/queries/series";
+import { useNavigation } from "@react-navigation/native";
+import { NAVIGATIONSCREENS } from "../../packages/common/enums/navigation";
 
 interface SuccessProps<T> {
   data: T[];
@@ -12,6 +14,7 @@ interface SuccessProps<T> {
 }
 
 const Success = ({ data, searchResults = false }: SuccessProps<any>) => {
+  const { navigate } = useNavigation();
   const styles = useStyles(classes);
   if (data.length === 0) {
     return (
@@ -23,6 +26,10 @@ const Success = ({ data, searchResults = false }: SuccessProps<any>) => {
     );
   }
 
+  const goToSeries = (showId: number) => {
+    navigate(NAVIGATIONSCREENS.SERIES, { showId });
+  };
+
   const renderItem = (payload: any) => {
     if (searchResults) {
       const series: Search = payload.item;
@@ -32,6 +39,7 @@ const Success = ({ data, searchResults = false }: SuccessProps<any>) => {
           title={series.show.name}
           imageSource={series.show.image ? series.show.image.medium : null}
           style={styles.poster}
+          onPress={() => goToSeries(series.show.id)}
         />
       );
     }
@@ -42,6 +50,7 @@ const Success = ({ data, searchResults = false }: SuccessProps<any>) => {
         title={series.name}
         imageSource={series.image ? series.image.medium : null}
         style={styles.poster}
+        onPress={() => goToSeries(series.id)}
       />
     );
   };

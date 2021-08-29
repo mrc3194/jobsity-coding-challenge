@@ -22,7 +22,7 @@ const ResultQuery = ({
     }
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator color="black" size="large" />
+        <ActivityIndicator color="white" size="large" />
       </View>
     );
   }
