@@ -1,18 +1,34 @@
 import React from "react";
-import { View, Text, Image, ViewStyle } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ViewStyle,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
 import useStyles from "../../hooks/useStyles";
 import classes from "./classes";
 
-interface SeriesInfoPoster {
+interface SeriesInfoPoster extends TouchableOpacityProps {
   imageSource: string | null;
   title: string;
   style?: ViewStyle;
 }
 
-const SeriesInfoPoster = ({ imageSource, title, style }: SeriesInfoPoster) => {
+const SeriesInfoPoster = ({
+  imageSource,
+  title,
+  style,
+  ...rest
+}: SeriesInfoPoster) => {
   const styles = useStyles(classes);
   return (
-    <View style={[styles.container, style]}>
+    <TouchableOpacity
+      activeOpacity={0.82}
+      style={[styles.container, style]}
+      {...rest}
+    >
       <View style={styles.imageContainer}>
         {imageSource && (
           <Image
@@ -27,7 +43,7 @@ const SeriesInfoPoster = ({ imageSource, title, style }: SeriesInfoPoster) => {
           {title}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
