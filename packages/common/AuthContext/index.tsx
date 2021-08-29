@@ -2,12 +2,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LocalStorageKeys } from "../types/localStorage";
 import { LocalStorageAutoOptions } from "../types/auth";
+import saveInStorage from "../localStorage";
 
 const initialContext = {
   isLoading: true,
   optionActive: null,
   validatePIN: (pin: string) => true,
   setAuthOption: (option: string) => null,
+  setNewPIN: (newPIN: string) => null,
 };
 
 interface AuthContextProps {
@@ -15,6 +17,7 @@ interface AuthContextProps {
   optionActive: string | null;
   validatePIN: (pin: string) => boolean;
   setAuthOption: (option: string) => void;
+  setNewPIN: (newPIN: string) => void;
 }
 
 export const AuthContext =
@@ -33,12 +36,24 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const validatePIN = (pin: string): boolean => authOptions.pinCode === pin;
   const setAuthOption = (option: string) => {
     setAuthOptions((prevOptions: LocalStorageAutoOptions) => {
-      return {
+      const newOptions = {
         ...prevOptions,
         currentOption: option,
       };
+      saveInStorage(JSON.stringify(newOptions), LocalStorageKeys.AUTH_SETTINGS);
+      return { ...newOptions };
     });
   };
+
+  const setNewPIN = (newPIN: string) =>
+    setAuthOptions((prevOptions: LocalStorageAutoOptions) => {
+      const newOptions = {
+        ...prevOptions,
+        pinCode: newPIN,
+      };
+      saveInStorage(JSON.stringify(newOptions), LocalStorageKeys.AUTH_SETTINGS);
+      return { ...newOptions };
+    });
 
   const getInitialData = async () => {
     try {
@@ -62,6 +77,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       optionActive: authOptions.currentOption,
       validatePIN,
       setAuthOption,
+      setNewPIN,
     }),
     [isLoading, authOptions, setAuthOption, validatePIN]
   );

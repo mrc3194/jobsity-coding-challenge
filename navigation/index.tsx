@@ -21,7 +21,7 @@ function NavigationStack() {
       <Tab.Navigator>
         <Tab.Screen name={NAVIGATIONSTACKS.HOME} component={HomeStack} />
         <Tab.Screen name={NAVIGATIONSCREENS.SEARCH} component={SearchStack} />
-        <Tab.Screen name={NAVIGATIONSCREENS.SERIES} component={SeriesScreen} />
+        {/* <Tab.Screen name={NAVIGATIONSCREENS.SERIES} component={SeriesScreen} /> */}
         <Tab.Screen name="SavedSeries" component={SavedSeriesScreen} />
         <Tab.Screen
           name={NAVIGATIONSCREENS.SETTINGS}
