@@ -1,6 +1,12 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useRef } from "react";
 import { useState } from "react";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import SearchResults from "../../components/SearchResults";
 import Input from "@jobsity/ui/Input";
 import debounce from "@jobsity/common/debounce";
@@ -8,6 +14,15 @@ import { useSearchPerson, useSearchSeries } from "@jobsity/common/queries";
 import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
 import Icon from "@jobsity/ui/Icon";
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import useDimensions from "../../packages/hooks/useDimensions";
+import useTheme from "../../packages/hooks/useTheme";
 
 const SearchScreen = () => {
   const [firstSearchHappened, setFirstSearchHappened] =
@@ -36,15 +51,59 @@ const SearchScreen = () => {
   const query = useSearchSeries(searchTermQuery);
   const personQuery = useSearchPerson(searchTermQuery);
   const styles = useStyles(classes);
+  const textInputRef = useRef<any>(null);
+  const sharedInputFocused = useSharedValue<number>(0);
+
+  const searchInputContainerStyle = useAnimatedStyle(() => {
+    return {
+      width:
+        interpolate(
+          sharedInputFocused.value,
+          [0, 1],
+          [100, 80],
+          Extrapolate.CLAMP
+        ) + "%",
+    };
+  });
+
+  const cancelButtonStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: sharedInputFocused.value,
+        },
+      ],
+      opacity: sharedInputFocused.value,
+    };
+  });
+
+  const blurInput = () => {
+    textInputRef.current?.blur();
+  };
+
+  const onInputBlur = () => (sharedInputFocused.value = withTiming(0));
+  const onInputFocus = () => (sharedInputFocused.value = withTiming(1));
 
   return (
     <SafeAreaView style={styles.container}>
-      <Input
-        value={searchTerm}
-        leftIcon
-        width="90%"
-        onChangeText={(text: string) => search(text)}
-      />
+      <View style={styles.searchContainer}>
+        <Animated.View style={searchInputContainerStyle}>
+          <Input
+            ref={textInputRef}
+            onBlur={onInputBlur}
+            onFocus={onInputFocus}
+            value={searchTerm}
+            leftIcon
+            width="100%"
+            onChangeText={(text: string) => search(text)}
+          />
+        </Animated.View>
+        <Animated.View style={cancelButtonStyle}>
+          <TouchableOpacity onPress={blurInput}>
+            <Text style={styles.cancelText}>Cancel</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
       {firstSearchHappened ? (
         <View style={styles.contentContainer}>
           <ScrollView style={styles.scrollView}>

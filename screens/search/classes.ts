@@ -40,6 +40,18 @@ const classes = ({ palette }: CustomStyleSheetProps) => {
       color: palette.text.primary,
       fontSize: 28,
     },
+    searchContainer: {
+      width: "100%",
+      paddingBottom: 12,
+      paddingHorizontal: 12,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    cancelText: {
+      color: palette.main.accent,
+      fontSize: 16,
+    },
   });
 };
 

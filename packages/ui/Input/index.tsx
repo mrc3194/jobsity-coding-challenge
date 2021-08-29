@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { View, TextInput, TextInputProps, ViewStyle } from "react-native";
 
 import useStyles from "@jobsity/hooks/useStyles";
@@ -16,24 +16,29 @@ interface InputProps extends TextInputProps {
   iconName?: IconsNames;
 }
 
-const Input = ({
-  width = "100%",
-  inputStyle,
-  leftIcon,
-  iconName = "search",
-  ...rest
-}: InputProps) => {
-  const styles = useStyles(classes);
-  return (
-    <View style={[styles.container, { width }]}>
-      {leftIcon && (
-        <View style={styles.iconContainer}>
-          <Icon name={iconName} size={18} />
-        </View>
-      )}
-      <TextInput style={[styles.textInput, inputStyle]} {...rest} />
-    </View>
-  );
-};
+const Input = forwardRef(
+  (
+    {
+      width = "100%",
+      inputStyle,
+      leftIcon,
+      iconName = "search",
+      ...rest
+    }: InputProps,
+    ref: any
+  ) => {
+    const styles = useStyles(classes);
+    return (
+      <View style={[styles.container, { width }]}>
+        {leftIcon && (
+          <View style={styles.iconContainer}>
+            <Icon name={iconName} size={18} />
+          </View>
+        )}
+        <TextInput ref={ref} style={[styles.textInput, inputStyle]} {...rest} />
+      </View>
+    );
+  }
+);
 
 export default Input;
