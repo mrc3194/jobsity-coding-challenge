@@ -7,8 +7,11 @@ import debounce from "@jobsity/common/debounce";
 import { useSearchPerson, useSearchSeries } from "@jobsity/common/queries";
 import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
+import Icon from "@jobsity/ui/Icon";
 
 const SearchScreen = () => {
+  const [firstSearchHappened, setFirstSearchHappened] =
+    useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchTermQuery, setSearchTermQuery] = useState<string>("");
 
@@ -22,6 +25,7 @@ const SearchScreen = () => {
     debounce(
       (text: string) => {
         setSearchTermQuery(text);
+        if (!firstSearchHappened) setFirstSearchHappened(true);
       },
       850,
       false
@@ -41,14 +45,27 @@ const SearchScreen = () => {
         width="90%"
         onChangeText={(text: string) => search(text)}
       />
-      <View style={styles.contentContainer}>
-        <ScrollView>
-          <Text style={styles.headerTitle}>Series</Text>
-          <SearchResults query={query} searchResults isFlatList={false} />
-          <Text style={styles.headerTitle}>Persons</Text>
-          <SearchResults query={personQuery} personResults isFlatList={false} />
-        </ScrollView>
-      </View>
+      {firstSearchHappened ? (
+        <View style={styles.contentContainer}>
+          <ScrollView style={styles.scrollView}>
+            <Text style={styles.headerTitle}>Series</Text>
+            <SearchResults query={query} searchResults isFlatList={false} />
+            <Text style={styles.headerTitle}>Persons</Text>
+            <SearchResults
+              query={personQuery}
+              personResults
+              isFlatList={false}
+            />
+          </ScrollView>
+        </View>
+      ) : (
+        <View style={styles.firstSearchContainer}>
+          <Icon name="search" color="white" size={52} />
+          <Text style={styles.firstSearchText}>
+            Search for your favorite series or talents!
+          </Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 };

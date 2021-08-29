@@ -4,6 +4,7 @@ const classes = ({ palette }: any) => {
   return StyleSheet.create({
     successContainer: {
       flex: 1,
+      width: "100%",
     },
     loadingContainer: {
       flex: 1,
@@ -51,8 +52,8 @@ const classes = ({ palette }: any) => {
       color: palette.common.white,
       width: "80%",
       textAlign: "center",
-      fontSize: 32,
-      fontWeight: "700",
+      fontSize: 18,
+      fontWeight: "500",
     },
   });
 };
