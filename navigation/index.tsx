@@ -6,6 +6,11 @@ import HomeScreen from "../screens/home";
 import SearchScreen from "../screens/search";
 import SeriesScreen from "../screens/series";
 import EpisodeScreen from "../screens/episode";
+import HomeStack from "./stacks/home";
+import {
+  NAVIGATIONSCREENS,
+  NAVIGATIONSTACKS,
+} from "../packages/common/enums/navigation";
 
 function SettingsScreen() {
   return (
@@ -21,10 +26,13 @@ function NavigationStack() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
-        <Tab.Screen name="Series" component={SeriesScreen} />
-        <Tab.Screen name="Episode" component={EpisodeScreen} />
+        <Tab.Screen name={NAVIGATIONSTACKS.HOME} component={HomeStack} />
+        <Tab.Screen name={NAVIGATIONSCREENS.SEARCH} component={SearchScreen} />
+        <Tab.Screen name={NAVIGATIONSCREENS.SERIES} component={SeriesScreen} />
+        <Tab.Screen
+          name={NAVIGATIONSCREENS.EPISODE}
+          component={EpisodeScreen}
+        />
         {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
       </Tab.Navigator>
     </NavigationContainer>
