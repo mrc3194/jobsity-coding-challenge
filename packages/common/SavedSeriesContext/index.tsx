@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Series } from "../types/queries/series";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LocalStorageKeys } from "../types/localStorage";
+import saveInStorage from "../localStorage";
 
 export interface SavedSeriesContextProps {
   saveSeries: (newSeries: Series) => void;
@@ -32,17 +33,9 @@ const SavedSeriesProvider: React.FC<SavedSeriesProviderProps> = ({
   const saveSeries = (newSeries: Series) => {
     setSavedSeries((prevSeries: Series[]) => {
       prevSeries.push(newSeries);
-      saveInStorage(JSON.stringify(prevSeries));
+      saveInStorage(JSON.stringify(prevSeries), LocalStorageKeys.SAVED_SERIES);
       return [...prevSeries];
     });
-  };
-
-  const saveInStorage = async (series: string) => {
-    try {
-      await AsyncStorage.setItem(LocalStorageKeys.SAVED_SERIES, series);
-    } catch (e) {
-      console.error("##error", e);
-    }
   };
 
   const deleteSeries = (seriesId: number) => {
@@ -50,7 +43,7 @@ const SavedSeriesProvider: React.FC<SavedSeriesProviderProps> = ({
       const newSeries = prevSeries.filter(
         (series: Series, index: number): boolean => series.id !== seriesId
       );
-      saveInStorage(JSON.stringify(newSeries));
+      saveInStorage(JSON.stringify(newSeries), LocalStorageKeys.SAVED_SERIES);
       return [...newSeries];
     });
   };

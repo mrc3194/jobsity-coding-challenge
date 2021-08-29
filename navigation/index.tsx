@@ -8,32 +8,35 @@ import HomeStack from "./stacks/home";
 import {
   NAVIGATIONSCREENS,
   NAVIGATIONSTACKS,
-} from "../packages/common/enums/navigation";
+} from "@jobsity/common/enums/navigation";
 import SearchStack from "./stacks/search";
 import SavedSeriesScreen from "../screens/savedseries";
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+import SettingsScreen from "../screens/settings";
+import useAuthContext from "@jobsity/hooks/useAuthContext";
+import { AuthOptions } from "../packages/common/types/auth";
+import AuthScreen from "../screens/auth";
 
 const Tab = createBottomTabNavigator();
 
 function NavigationStack() {
+  const { userAuthenticated, optionActive } = useAuthContext();
+  if (
+    optionActive === AuthOptions.BIO ||
+    (optionActive === AuthOptions.PIN && !userAuthenticated)
+  ) {
+    return <AuthScreen />;
+  }
   return (
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name={NAVIGATIONSTACKS.HOME} component={HomeStack} />
         <Tab.Screen name={NAVIGATIONSCREENS.SEARCH} component={SearchStack} />
-        <Tab.Screen name={NAVIGATIONSCREENS.SERIES} component={SeriesScreen} />
-        <Tab.Screen
-          name={NAVIGATIONSCREENS.EPISODE}
-          component={EpisodeScreen}
-        />
+        {/* <Tab.Screen name={NAVIGATIONSCREENS.SERIES} component={SeriesScreen} /> */}
         <Tab.Screen name="SavedSeries" component={SavedSeriesScreen} />
+        <Tab.Screen
+          name={NAVIGATIONSCREENS.SETTINGS}
+          component={SettingsScreen}
+        />
         {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
       </Tab.Navigator>
     </NavigationContainer>
