@@ -9,15 +9,19 @@ const initialContext = {
   optionActive: null,
   validatePIN: (pin: string) => true,
   setAuthOption: (option: string) => null,
+  userAuthenticated: true,
   setNewPIN: (newPIN: string) => null,
+  setUserSuccessAuth: () => null,
 };
 
 interface AuthContextProps {
   isLoading: boolean;
   optionActive: string | null;
+  userAuthenticated: boolean;
   validatePIN: (pin: string) => boolean;
   setAuthOption: (option: string) => void;
   setNewPIN: (newPIN: string) => void;
+  setUserSuccessAuth: () => void;
 }
 
 export const AuthContext =
@@ -32,6 +36,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     pinCode: null,
     currentOption: null,
   });
+  const [userAuthenticated, setUserAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const validatePIN = (pin: string): boolean => authOptions.pinCode === pin;
   const setAuthOption = (option: string) => {
@@ -54,6 +59,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       saveInStorage(JSON.stringify(newOptions), LocalStorageKeys.AUTH_SETTINGS);
       return { ...newOptions };
     });
+
+  const setUserSuccessAuth = () => setUserAuthenticated(true);
 
   const getInitialData = async () => {
     try {
@@ -78,6 +85,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       validatePIN,
       setAuthOption,
       setNewPIN,
+      userAuthenticated,
+      setUserSuccessAuth,
     }),
     [isLoading, authOptions, setAuthOption, validatePIN]
   );

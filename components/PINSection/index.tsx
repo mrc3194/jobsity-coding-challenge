@@ -136,7 +136,7 @@ const PINSection = ({
           style={styles.textInput}
           value={PIN}
           keyboardType="numeric"
-          onChangeText={(text: string) => setPin(text)}
+          onChangeText={(text: string) => text.length <= 4 && setPin(text)}
         />
       </View>
     </View>
