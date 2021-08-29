@@ -5,6 +5,7 @@ import SearchScreen from "../../../screens/search";
 import SeriesScreen from "../../../screens/series";
 import EpisodeScreen from "../../../screens/episode";
 import { NAVIGATIONSCREENS } from "../../../packages/common/enums/navigation";
+import PersonScreen from "../../../screens/person";
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const HomeStack = (props: any) => {
         name={NAVIGATIONSCREENS.EPISODE}
         component={EpisodeScreen}
       />
+      <Stack.Screen name={NAVIGATIONSCREENS.PERSON} component={PersonScreen} />
     </Stack.Navigator>
   );
 };

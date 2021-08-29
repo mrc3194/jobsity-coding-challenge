@@ -19,6 +19,15 @@ const classes = ({ palette }: any) => {
     contentContainer: {
       paddingVertical: 24,
     },
+    contentContainerStatic: {
+      paddingVertical: 24,
+      paddingHorizontal: 18,
+      width: "100%",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
     wrapper: {
       width: "100%",
       // flexWrap: "wrap",

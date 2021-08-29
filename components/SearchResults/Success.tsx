@@ -7,13 +7,24 @@ import { Search } from "@jobsity/common/types/queries/search";
 import { Series } from "@jobsity/common/types/queries/series";
 import { useNavigation } from "@react-navigation/native";
 import { NAVIGATIONSCREENS } from "../../packages/common/enums/navigation";
+import {
+  Person,
+  PersonSearch,
+} from "../../packages/common/types/queries/person";
 
 interface SuccessProps<T> {
   data: T[];
   searchResults?: boolean;
+  personResults?: boolean;
+  isFlatList?: boolean;
 }
 
-const Success = ({ data, searchResults = false }: SuccessProps<any>) => {
+const Success = ({
+  data,
+  searchResults = false,
+  personResults = false,
+  isFlatList = true,
+}: SuccessProps<any>) => {
   const { navigate } = useNavigation();
   const styles = useStyles(classes);
   if (data.length === 0) {
@@ -30,12 +41,16 @@ const Success = ({ data, searchResults = false }: SuccessProps<any>) => {
     navigate(NAVIGATIONSCREENS.SERIES, { showId });
   };
 
+  const goToPerson = (personId: number, name: string, image: object | null) => {
+    navigate(NAVIGATIONSCREENS.PERSON, { personId, name, image });
+  };
+
   const renderItem = (payload: any) => {
     if (searchResults) {
       const series: Search = payload.item;
       return (
         <SeriesInfoPoster
-          key={series.show.id}
+          key={series.show.id + "show"}
           title={series.show.name}
           imageSource={series.show.image ? series.show.image.medium : null}
           style={styles.poster}
@@ -43,10 +58,23 @@ const Success = ({ data, searchResults = false }: SuccessProps<any>) => {
         />
       );
     }
+    if (personResults) {
+      const personSearch: PersonSearch = payload.item;
+      const { person } = personSearch;
+      return (
+        <SeriesInfoPoster
+          key={person.id + "person"}
+          title={person.name}
+          imageSource={person.image ? person.image.medium : null}
+          style={styles.poster}
+          onPress={() => goToPerson(person.id, person.name, person.image)}
+        />
+      );
+    }
     const series: Series = payload.item;
     return (
       <SeriesInfoPoster
-        key={series.id}
+        key={series.id + "series"}
         title={series.name}
         imageSource={series.image ? series.image.medium : null}
         style={styles.poster}
@@ -55,35 +83,30 @@ const Success = ({ data, searchResults = false }: SuccessProps<any>) => {
     );
   };
 
+  if (isFlatList) {
+    return (
+      <View style={styles.successContainer}>
+        <FlatList
+          columnWrapperStyle={styles.wrapper}
+          renderItem={renderItem}
+          data={data}
+          keyExtractor={(item): string => {
+            return String(searchResults ? item.show.id : item.id);
+          }}
+          style={styles.scrollView}
+          contentContainerStyle={styles.contentContainer}
+          scrollEventThrottle={16}
+          showsVerticalScrollIndicator={false}
+          numColumns={2}
+        />
+      </View>
+    );
+  }
   return (
     <View style={styles.successContainer}>
-      <FlatList
-        columnWrapperStyle={styles.wrapper}
-        renderItem={renderItem}
-        data={data}
-        keyExtractor={(item): string => {
-          return String(searchResults ? item.show.id : item.id);
-        }}
-        style={styles.scrollView}
-        contentContainerStyle={styles.contentContainer}
-        scrollEventThrottle={16}
-        showsVerticalScrollIndicator={false}
-        numColumns={2}
-      />
-      {/* <ScrollView>
-        {searchResults
-          ? data.map((series: Search) => {})
-          : data.map((series: Series) => {
-              return (
-                <SeriesInfoPoster
-                  key={series.id}
-                  title={series.name}
-                  imageSource={series.image ? series.image.medium : null}
-                  style={styles.poster}
-                />
-              );
-            })}
-      </ScrollView> */}
+      <View style={styles.contentContainerStatic}>
+        {data.map((item: any, index: number) => renderItem({ item }))}
+      </View>
     </View>
   );
 };

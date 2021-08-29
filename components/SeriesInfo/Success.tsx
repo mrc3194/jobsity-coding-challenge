@@ -18,7 +18,10 @@ const Success = ({ data, showId }: Props) => {
   const query = useEpisodes(showId);
   const styles = useStyles(classes);
   const { image, name, genres, schedule, summary } = data;
-  const cleanedSummary = useMemo(() => cleanHTMLText(summary), [summary]);
+  const cleanedSummary = useMemo(
+    () => (summary ? cleanHTMLText(summary) : null),
+    [summary]
+  );
 
   return (
     <View style={styles.container}>
@@ -40,7 +43,9 @@ const Success = ({ data, showId }: Props) => {
             <Text style={styles.seriesTitle}>{name}</Text>
             <View style={styles.datesContainer}>
               <Days days={schedule.days} />
-              <Text style={styles.seriesDates}>{schedule.time} hrs.</Text>
+              {schedule.time.length > 0 && (
+                <Text style={styles.seriesDates}>{schedule.time} hrs.</Text>
+              )}
             </View>
           </View>
         </View>
@@ -58,8 +63,12 @@ const Success = ({ data, showId }: Props) => {
             ))}
           </ScrollView>
         </View>
-        <Text style={styles.headerText}>Summary</Text>
-        <Text style={styles.summary}>{cleanedSummary}</Text>
+        {summary && (
+          <React.Fragment>
+            <Text style={styles.headerText}>Summary</Text>
+            <Text style={styles.summary}>{cleanedSummary}</Text>
+          </React.Fragment>
+        )}
         <Episodes query={query} />
       </ScrollView>
     </View>
@@ -67,14 +76,14 @@ const Success = ({ data, showId }: Props) => {
 };
 
 interface Days {
-  days: string[];
+  days?: string[];
 }
 
 const Days = ({ days }: Days) => {
   const styles = useStyles(classes);
   return (
     <View style={styles.daysContainer}>
-      {days.map((day: string) => (
+      {days?.map((day: string) => (
         <View style={styles.dayContainer}>
           <Text style={styles.day}>{day.substr(0, 3)}</Text>
         </View>

@@ -10,4 +10,5 @@ export enum NAVIGATIONSCREENS {
   SETTINGS = "Settings",
   SERIES = "Series",
   SEARCH = "Search",
+  PERSON = "Person",
 }

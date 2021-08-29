@@ -14,7 +14,10 @@ interface Props {
 const Success = ({ data }: Props) => {
   const styles = useStyles(classes);
   const { image, name, number, season, summary, airdate, airtime } = data;
-  const cleanedSummary = useMemo(() => cleanHTMLText(summary), [summary]);
+  const cleanedSummary = useMemo(
+    () => (summary ? cleanHTMLText(summary) : null),
+    [summary]
+  );
   return (
     <View style={styles.container}>
       <View style={styles.posterContainer}>
@@ -34,9 +37,9 @@ const Success = ({ data }: Props) => {
               Season {season} - Episode {number}
             </Text>
           </View>
-          <Text style={styles.summary}>{cleanedSummary}</Text>
+          {summary && <Text style={styles.summary}>{cleanedSummary}</Text>}
           <Text style={styles.seriesDates}>
-            Air date: {airdate}, {airtime} hrs.
+            Air date: {airdate} {airtime && `,${airtime} hrs.`}
           </Text>
         </View>
       </View>

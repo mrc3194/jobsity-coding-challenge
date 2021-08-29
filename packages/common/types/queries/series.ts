@@ -1,6 +1,6 @@
 interface Schedule {
   time: string;
-  days: string[];
+  days?: string[];
 }
 interface Rating {
   average: number;
@@ -56,7 +56,7 @@ export interface Series {
   dvdCountry?: string;
   externals?: Externals;
   image?: Image;
-  summary: string;
+  summary?: string;
   updated: number;
   _links: Links;
 }

@@ -7,12 +7,12 @@ export interface Episode {
   season: number;
   number: number;
   type: string;
-  airdate: string;
-  airtime: string;
-  airstamp: string;
-  runtime: number;
+  airdate?: string;
+  airtime?: string;
+  airstamp?: string;
+  runtime?: number;
   image?: Image;
-  summary: string;
+  summary?: string;
   _links: Links;
 }
 
