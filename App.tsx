@@ -4,18 +4,21 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import ThemeProvider from "@jobsity/common/ThemeContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import NavigationStack from "./navigation";
-import SavedSeriesProvider from "./packages/common/SavedSeriesContext";
+import SavedSeriesProvider from "@jobsity/common/SavedSeriesContext";
+import AuthProvider from "@jobsity/common/AuthContext";
 
 const queryClient = new QueryClient();
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <SavedSeriesProvider>
-        <ThemeProvider>
-          <NavigationStack />
-        </ThemeProvider>
-      </SavedSeriesProvider>
+      <AuthProvider>
+        <SavedSeriesProvider>
+          <ThemeProvider>
+            <NavigationStack />
+          </ThemeProvider>
+        </SavedSeriesProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
