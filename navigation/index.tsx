@@ -10,6 +10,7 @@ import {
   NAVIGATIONSTACKS,
 } from "../packages/common/enums/navigation";
 import SearchStack from "./stacks/search";
+import SavedSeriesScreen from "../screens/savedseries";
 
 function SettingsScreen() {
   return (
@@ -32,6 +33,7 @@ function NavigationStack() {
           name={NAVIGATIONSCREENS.EPISODE}
           component={EpisodeScreen}
         />
+        <Tab.Screen name="SavedSeries" component={SavedSeriesScreen} />
         {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
       </Tab.Navigator>
     </NavigationContainer>

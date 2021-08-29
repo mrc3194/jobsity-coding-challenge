@@ -85,6 +85,11 @@ const classes = ({ screenHeight, palette }: any) => {
       paddingHorizontal: 12,
       color: palette.common.white,
     },
+    saveButtonContainer: {
+      position: "absolute",
+      bottom: 12,
+      right: 12,
+    },
   });
 };
 

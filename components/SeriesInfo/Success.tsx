@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useEpisodes } from "@jobsity/common/queries";
 import Episodes from "../Episodes";
 import useStyles from "@jobsity/hooks/useStyles";
@@ -8,6 +8,8 @@ import Image from "@jobsity/ui/Image";
 import cleanHTMLText from "@jobsity/common/cleanHTMLText";
 import { Series } from "@jobsity/common/types/queries/series";
 import { LinearGradient } from "expo-linear-gradient";
+import Icon from "@jobsity/ui/Icon";
+import useSavedSeries from "@jobsity/hooks/useSavedSeries";
 
 interface Props {
   data: Series;
@@ -16,12 +18,26 @@ interface Props {
 
 const Success = ({ data, showId }: Props) => {
   const query = useEpisodes(showId);
+  const { seriesIsSaved, saveSeries, deleteSeries } = useSavedSeries();
   const styles = useStyles(classes);
   const { image, name, genres, schedule, summary } = data;
   const cleanedSummary = useMemo(
     () => (summary ? cleanHTMLText(summary) : null),
     [summary]
   );
+
+  const isSeriesSaved = useMemo(
+    () => seriesIsSaved(data.id),
+    [data.id, seriesIsSaved]
+  );
+
+  const manageSeriesSavedStatus = () => {
+    if (isSeriesSaved) {
+      deleteSeries(data.id);
+    } else {
+      saveSeries(data);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -48,6 +64,16 @@ const Success = ({ data, showId }: Props) => {
               )}
             </View>
           </View>
+          <TouchableOpacity
+            onPress={manageSeriesSavedStatus}
+            style={styles.saveButtonContainer}
+          >
+            <Icon
+              name={isSeriesSaved ? "bookmark" : "bookmark-outline"}
+              color="white"
+              size={32}
+            />
+          </TouchableOpacity>
         </View>
         <Text style={styles.headerText}>Genres</Text>
         <View style={styles.genresScrollViewContainer}>
