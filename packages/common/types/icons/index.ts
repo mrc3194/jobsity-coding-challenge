@@ -1,3 +1,3 @@
-import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
-export type IconsNames = keyof typeof Feather.glyphMap;
+export type IconsNames = keyof typeof Ionicons.glyphMap;

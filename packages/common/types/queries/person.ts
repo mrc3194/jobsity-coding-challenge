@@ -16,7 +16,7 @@ interface PersonLinks {
   character: Link;
 }
 
-interface Person {
+export interface Person {
   id: number;
   url: string;
   name: string;

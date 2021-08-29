@@ -11,11 +11,15 @@ import Loading from "./Loading";
 interface SearchResultsProps {
   query: UseQueryResult;
   searchResults?: boolean;
+  personResults?: boolean;
+  isFlatList?: boolean;
 }
 
 const SearchResults = ({
   query,
   searchResults = false,
+  personResults = false,
+  isFlatList = true,
 }: SearchResultsProps) => {
   return (
     <ResultQuery
@@ -23,6 +27,8 @@ const SearchResults = ({
       Success={Success}
       Loading={Loading}
       searchResults={searchResults}
+      personResults={personResults}
+      isFlatList={isFlatList}
     />
   );
 };

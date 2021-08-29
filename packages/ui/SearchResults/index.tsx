@@ -6,17 +6,15 @@ import SeriesInfoPoster from "@jobsity/ui/SeriesInfoPoster";
 import { Search } from "@jobsity/common/types/queries/search";
 import { Series } from "@jobsity/common/types/queries/series";
 import { useNavigation } from "@react-navigation/native";
-import { NAVIGATIONSCREENS } from "../../packages/common/enums/navigation";
-import {
-  Person,
-  PersonSearch,
-} from "../../packages/common/types/queries/person";
+import { NAVIGATIONSCREENS } from "@jobsity/common/enums/navigation";
+import { Person, PersonSearch } from "@jobsity/common/types/queries/person";
 
 interface SuccessProps<T> {
   data: T[];
   searchResults?: boolean;
   personResults?: boolean;
   isFlatList?: boolean;
+  saveOption: boolean;
 }
 
 const Success = ({
@@ -24,6 +22,7 @@ const Success = ({
   searchResults = false,
   personResults = false,
   isFlatList = true,
+  saveOption = false,
 }: SuccessProps<any>) => {
   const { navigate } = useNavigation();
   const styles = useStyles(classes);
@@ -75,10 +74,12 @@ const Success = ({
     return (
       <SeriesInfoPoster
         key={series.id + "series"}
+        id={series.id}
         title={series.name}
         imageSource={series.image ? series.image.medium : null}
         style={styles.poster}
         onPress={() => goToSeries(series.id)}
+        saveOption={saveOption}
       />
     );
   };

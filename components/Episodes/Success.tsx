@@ -1,48 +1,84 @@
 import React, { useMemo, useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import useStyles from "@jobsity/hooks/useStyles";
+import classes from "./classes";
+import { Episode } from "../../packages/common/types/queries/episodes";
+import { useNavigation } from "@react-navigation/native";
+import { NAVIGATIONSCREENS } from "../../packages/common/enums/navigation";
 
 const Success = ({ data }: any) => {
   const [currentSeason, setCurrentSeason] = useState<number>(0);
-  const seasonArray = useMemo(() => data[currentSeason], [currentSeason, data]);
+  const seasonsList = useMemo(() => data[currentSeason], [currentSeason, data]);
+  const styles = useStyles(classes);
   return (
-    <View
-      style={{
-        flex: 1,
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <View style={{ width: "100%", height: 50 }}>
+    <View style={styles.container}>
+      <View style={styles.seasonsSelectorContainer}>
         <ScrollView
           horizontal
-          style={{
-            flex: 1,
-            borderWidth: 2,
-            borderColor: "white",
-          }}
+          showsHorizontalScrollIndicator={false}
+          style={{ flex: 1 }}
+          contentContainerStyle={styles.contentContainer}
         >
           {data.map((season: any, index: number) => {
-            console.log(season.season);
             return (
               <TouchableOpacity
-                style={{
-                  height: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingHorizontal: 18,
-                }}
+                style={[
+                  styles.seasonSelector,
+                  currentSeason === index && styles.seasonSelected,
+                ]}
                 onPress={() => setCurrentSeason(index)}
               >
-                <Text style={{ color: "white" }}>Season {season.season}</Text>
+                <Text
+                  style={[
+                    styles.seasonSelectorText,
+                    currentSeason === index && styles.seasonSelectedText,
+                  ]}
+                >
+                  Season {season.season}
+                </Text>
               </TouchableOpacity>
             );
           })}
         </ScrollView>
       </View>
-      <Text style={{ color: "white" }}>
-        Season: {seasonArray.season} | {seasonArray.episodes.length}
-      </Text>
+      <ListOfEpisodes episodes={seasonsList.episodes} />
+    </View>
+  );
+};
+
+interface ListOfEpisodesProps {
+  episodes: Episode[];
+}
+
+const ListOfEpisodes = ({ episodes }: ListOfEpisodesProps) => {
+  const { navigate } = useNavigation();
+  const styles = useStyles(classes);
+
+  return (
+    <View style={styles.listOfEpisodesContainer}>
+      {episodes.map((episode: Episode, index: number) => (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={styles.episodeContainer}
+          onPress={() =>
+            navigate(NAVIGATIONSCREENS.EPISODE, { episodeId: episode.id })
+          }
+        >
+          <Text style={styles.episodeText}>
+            <Text style={styles.seasonEpisode}>
+              S{episode.season}E{episode.number}
+            </Text>{" "}
+            {episode.name}
+          </Text>
+          <Text style={styles.episodeDuration}>{episode.runtime} minutes</Text>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
