@@ -12,7 +12,7 @@ const SeriesScreen = ({ route }: any) => {
   const query = useSeries(showId);
   const styles = useStyles(classes);
   return (
-    <SafeAreaView style={styles}>
+    <SafeAreaView style={styles.container}>
       <SeriesInfo query={query} showId={showId} />
     </SafeAreaView>
   );
