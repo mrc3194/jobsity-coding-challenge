@@ -9,7 +9,8 @@ import { Text, TextInput, View } from "react-native";
 import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
 import useAuthContext from "@jobsity/hooks/useAuthContext";
-import { AuthOptions } from "../../packages/common/types/auth";
+import { AuthOptions } from "@jobsity/common/types/auth";
+import usePlatform from "@jobsity/hooks/usePlatform";
 
 interface PINSectionProps {
   PIN: string;
@@ -30,6 +31,7 @@ const PINSection = ({
     useAuthContext();
   const textInputRef = useRef<any>(null);
   const styles = useStyles(classes);
+  const { isAndroid } = usePlatform();
 
   const isPINActive = useMemo(
     () => optionActive === AuthOptions.PIN,
@@ -135,7 +137,7 @@ const PINSection = ({
           ref={textInputRef}
           style={styles.textInput}
           value={PIN}
-          keyboardType="numeric"
+          keyboardType={isAndroid ? "phone-pad" : "numeric"}
           onChangeText={(text: string) => text.length <= 4 && setPin(text)}
         />
       </View>
