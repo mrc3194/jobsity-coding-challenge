@@ -30,6 +30,9 @@ const classes = ({ screenHeight, palette }: any) => {
       paddingVertical: 18,
       paddingHorizontal: 12,
     },
+    scrollView: {
+      flex: 1,
+    },
     // list of episodes
     listOfEpisodesContainer: {
       width: "100%",

@@ -34,16 +34,14 @@ const SearchScreen = () => {
   const styles = useStyles(classes);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: "#222", alignItems: "center" }}
-    >
+    <SafeAreaView style={styles.container}>
       <Input
         value={searchTerm}
         leftIcon
         width="90%"
         onChangeText={(text: string) => search(text)}
       />
-      <View style={{ flex: 1, width: "100%" }}>
+      <View style={styles.contentContainer}>
         <ScrollView>
           <Text style={styles.headerTitle}>Series</Text>
           <SearchResults query={query} searchResults isFlatList={false} />

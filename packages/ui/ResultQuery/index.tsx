@@ -1,6 +1,8 @@
 import React, { ComponentType } from "react";
 import { View, ActivityIndicator } from "react-native";
 import { UseQueryResult } from "react-query";
+import useStyles from "@jobsity/hooks/useStyles";
+import classes from "./classes";
 
 interface ResultQuery<T> {
   query: UseQueryResult;
@@ -16,12 +18,13 @@ const ResultQuery = ({
   ...rest
 }: ResultQuery<any>) => {
   const { isLoading, isError, isSuccess, data } = query;
+  const styles = useStyles(classes);
   if (isLoading) {
     if (Loading) {
       return <Loading data={data} isLoading={isLoading} isError={isError} />;
     }
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={styles.loadingContainer}>
         <ActivityIndicator color="white" size="large" />
       </View>
     );

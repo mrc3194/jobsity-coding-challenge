@@ -5,6 +5,8 @@ import { AuthOptions } from "@jobsity/common/types/auth";
 import PINSection from "../../components/PINSection";
 import * as LocalAuthentication from "expo-local-authentication";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import useStyles from "@jobsity/hooks/useStyles";
+import classes from "./classes";
 
 interface PINResponse {
   code: number;
@@ -16,6 +18,8 @@ interface PINResponse {
 const AuthScreen = () => {
   const { optionActive, setUserSuccessAuth } = useAuthContext();
   const [hasHardware, setHasHardware] = useState<boolean>(false);
+
+  const styles = useStyles(classes);
 
   const checkDevice = async () => {
     const hasAuthHardware = await LocalAuthentication.hasHardwareAsync();
@@ -52,14 +56,8 @@ const AuthScreen = () => {
   };
   if (optionActive === AuthOptions.PIN)
     return (
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: "red",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <SafeAreaView style={styles.container}>
+        {/* this button will be a ui component */}
         <TouchableOpacity
           style={{ padding: 20, backgroundColor: "yellow", marginTop: 12 }}
           activeOpacity={0.6}

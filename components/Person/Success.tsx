@@ -51,7 +51,7 @@ const Success = ({ data, name, image }: Props) => {
           style={styles.linearGradient}
         />
         <View style={styles.seriesInfo}>
-          <View style={{ width: "100%" }}>
+          <View style={styles.seriesInfoContainer}>
             <Text numberOfLines={3} style={styles.seriesTitle}>
               {name}
             </Text>

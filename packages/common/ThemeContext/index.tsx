@@ -4,27 +4,28 @@ import { ThemeContextProps } from "../types/theme-context";
 
 const { width: dW, height: dH } = Dimensions.get("window");
 
-const themeObject = {
+const themeObject: ThemeContextProps = {
   device: {
     width: dW,
     height: dH,
   },
   palette: {
     type: "light",
-    pillsColors: {
-      blue: "#67BFDC",
-      gray: "#C9C9C9",
-      green: "#4ACC79",
-    },
     common: {
       white: "#FFFFFF",
       black: "#000000",
     },
     text: {
-      primary: "rgba(0, 0, 0, 0.9)",
-      secondary: "rgba(0, 0, 0, 0.54)",
-      disabled: "rgba(0, 0, 0, 0.38)",
+      primary: "rgba(255, 255, 255, 0.9)",
+      secondary: "rgba(255, 255, 255, 0.54)",
+      disabled: "rgba(255, 255, 255, 0.38)",
       hint: "rgba(0, 0, 0, 0.12)",
+    },
+    main: {
+      primary: "#E50914",
+      secondary: "#221F1F",
+      accent: "#B81D24",
+      extra: "#F5F5F1",
     },
     button: {
       primary: "#3551A1",
