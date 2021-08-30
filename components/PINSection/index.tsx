@@ -154,6 +154,9 @@ const PINSection = ({
     }, 600);
   }, []);
 
+  const onChangeText = (text: string) =>
+    text.length <= 4 && setPin(text.replace(/[^0-9]/g, ""));
+
   return (
     <View style={styles.container}>
       <Text style={styles.headerTitle}>{title}</Text>
@@ -170,7 +173,7 @@ const PINSection = ({
           style={styles.textInput}
           value={PIN}
           keyboardType={isAndroid ? "phone-pad" : "numeric"}
-          onChangeText={(text: string) => text.length <= 4 && setPin(text)}
+          onChangeText={onChangeText}
         />
       </View>
     </View>
