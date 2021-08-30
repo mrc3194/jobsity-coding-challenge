@@ -5,6 +5,7 @@ import classes from "./classes";
 import useAuthContext from "@jobsity/hooks/useAuthContext";
 import { AuthOptions } from "@jobsity/common/types/auth";
 import PINSection from "../PINSection";
+import Button from "@jobsity/ui/Button";
 
 interface OnPinComplete {
   code: number;
@@ -18,6 +19,7 @@ const Settings: React.FC = () => {
   const [activePINSection, setActivePINSection] = useState<boolean>(false);
   const [newPIN, setNewPIN] = useState<string>("");
   const [PINConfirmed, setPinConfirmed] = useState<boolean>(false);
+  const [isPINDeactivation, setPINDeactivation] = useState<boolean>(false);
   const isPINActive = useMemo(
     () => optionActive === AuthOptions.PIN,
     [optionActive]
@@ -27,14 +29,10 @@ const Settings: React.FC = () => {
     [optionActive]
   );
   const PINActivation = () => {
-    if (isBIOActive && !isPINActive) {
-      alert("first auth with bio");
-    }
     if (!isBIOActive && isPINActive) {
       setActivePINSection(true);
     }
     if (!isBIOActive && !isPINActive) {
-      //   alert("just do it baby");
       setActivePINSection(true);
     }
   };
@@ -50,6 +48,12 @@ const Settings: React.FC = () => {
         setNewPIN("");
         setActivePINSection(false);
         setPinConfirmed(false);
+      }
+      if (code === 8) {
+        setNewPIN("");
+        setActivePINSection(false);
+        setPinConfirmed(false);
+        setPINDeactivation(false);
       }
       if (code === 1) {
         setNewPIN("");
@@ -67,22 +71,54 @@ const Settings: React.FC = () => {
     }
   };
 
+  const deactivatePINAuth = () => {
+    setPINDeactivation(true);
+    setActivePINSection(true);
+  };
+
+  const closePIN = () => {
+    setActivePINSection(false);
+    setNewPIN("");
+    setPinConfirmed(false);
+  };
+
   const styles = useStyles(classes);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity activeOpacity={0.6} onPress={PINActivation}>
-        <Text style={styles.headerTitle}>
-          {isPINActive ? "Change PIN" : "Active PIN"}
-        </Text>
-      </TouchableOpacity>
-      {activePINSection && (
-        <PINSection
-          callback={onPINComplete}
-          PIN={newPIN}
-          setPin={onChangeTextPin}
-          PINConfirmed={PINConfirmed}
+      {!activePINSection && (
+        <Button
+          title={isPINActive ? "Change PIN" : "Active PIN"}
+          width="90%"
+          height={50}
+          onPress={PINActivation}
         />
+      )}
+      {optionActive === AuthOptions.PIN && !activePINSection && (
+        <View
+          style={{ width: "100%", marginVertical: 12, alignItems: "center" }}
+        >
+          <Button
+            title="Delete PIN"
+            width="90%"
+            height={50}
+            onPress={deactivatePINAuth}
+          />
+        </View>
+      )}
+      {activePINSection && (
+        <Button title="Close" width="90%" height={50} onPress={closePIN} />
+      )}
+      {activePINSection && (
+        <View style={styles.activePINContainer}>
+          <PINSection
+            callback={onPINComplete}
+            PIN={newPIN}
+            setPin={onChangeTextPin}
+            PINConfirmed={PINConfirmed}
+            deactivating={isPINDeactivation}
+          />
+        </View>
       )}
     </View>
   );

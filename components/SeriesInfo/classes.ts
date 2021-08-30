@@ -1,15 +1,16 @@
 import { StyleSheet } from "react-native";
+import { CustomStyleSheetProps } from "@jobsity/common/types/styles";
 
-const classes = ({ screenHeight, palette }: any) => {
+const classes = ({ screenHeight, palette }: CustomStyleSheetProps) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#222",
+      backgroundColor: palette.main.secondary,
     },
     posterContainer: {
       width: "100%",
       height: screenHeight * 0.6,
-      backgroundColor: "red",
+      backgroundColor: palette.main.accent,
       justifyContent: "flex-end",
       alignItems: "center",
     },
@@ -50,10 +51,10 @@ const classes = ({ screenHeight, palette }: any) => {
       paddingHorizontal: 12,
       paddingVertical: 4,
       marginRight: 6,
-      backgroundColor: palette.common.white,
+      backgroundColor: palette.main.primary,
     },
     day: {
-      color: palette.common.black,
+      color: palette.text.primary,
       fontSize: 13,
     },
     seriesDates: {
@@ -89,6 +90,13 @@ const classes = ({ screenHeight, palette }: any) => {
       position: "absolute",
       bottom: 12,
       right: 12,
+    },
+    noImageContainer: {
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+      top: 0,
+      left: 0,
     },
   });
 };

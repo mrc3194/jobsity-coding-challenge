@@ -7,10 +7,7 @@ import { Search } from "@jobsity/common/types/queries/search";
 import { Series } from "@jobsity/common/types/queries/series";
 import { useNavigation } from "@react-navigation/native";
 import { NAVIGATIONSCREENS } from "../../packages/common/enums/navigation";
-import {
-  Person,
-  PersonSearch,
-} from "../../packages/common/types/queries/person";
+import { Person, PersonSearch } from "@jobsity/common/types/queries/person";
 
 interface SuccessProps<T> {
   data: T[];
@@ -30,9 +27,7 @@ const Success = ({
   if (data.length === 0) {
     return (
       <View style={styles.emptyStateContainer}>
-        <Text style={styles.emptyStateText}>
-          Search any series in TV Maze App
-        </Text>
+        <Text style={styles.emptyStateText}>There are no results</Text>
       </View>
     );
   }

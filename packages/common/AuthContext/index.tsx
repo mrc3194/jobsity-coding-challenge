@@ -12,6 +12,7 @@ const initialContext = {
   userAuthenticated: true,
   setNewPIN: (newPIN: string) => null,
   setUserSuccessAuth: () => null,
+  resetCredentials: () => null,
 };
 
 interface AuthContextProps {
@@ -22,6 +23,7 @@ interface AuthContextProps {
   setAuthOption: (option: string) => void;
   setNewPIN: (newPIN: string) => void;
   setUserSuccessAuth: () => void;
+  resetCredentials: () => void;
 }
 
 export const AuthContext =
@@ -60,6 +62,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       return { ...newOptions };
     });
 
+  const resetCredentials = () => {
+    setAuthOptions({
+      currentOption: null,
+      pinCode: null,
+    });
+    AsyncStorage.removeItem(LocalStorageKeys.AUTH_SETTINGS);
+  };
+
   const setUserSuccessAuth = () => setUserAuthenticated(true);
 
   const getInitialData = async () => {
@@ -87,6 +97,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setNewPIN,
       userAuthenticated,
       setUserSuccessAuth,
+      resetCredentials,
     }),
     [isLoading, authOptions, setAuthOption, validatePIN]
   );

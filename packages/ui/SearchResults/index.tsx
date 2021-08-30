@@ -29,9 +29,7 @@ const Success = ({
   if (data.length === 0) {
     return (
       <View style={styles.emptyStateContainer}>
-        <Text style={styles.emptyStateText}>
-          Search any series in TV Maze App
-        </Text>
+        <Text style={styles.emptyStateText}>There are no results</Text>
       </View>
     );
   }

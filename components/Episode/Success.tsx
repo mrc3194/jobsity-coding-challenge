@@ -1,17 +1,21 @@
 import React, { useMemo } from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import useStyles from "@jobsity/hooks/useStyles";
 import Image from "@jobsity/ui/Image";
 import { LinearGradient } from "expo-linear-gradient";
 import classes from "./classes";
 import { Episode } from "@jobsity/common/types/queries/episodes";
 import cleanHTMLText from "@jobsity/common/cleanHTMLText";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "@jobsity/ui/Icon";
+import GoBackHeader from "@jobsity/ui/GoBackHeader";
 
 interface Props {
   data: Episode;
 }
 
 const Success = ({ data }: Props) => {
+  const { goBack } = useNavigation();
   const styles = useStyles(classes);
   const { image, name, number, season, summary, airdate, airtime } = data;
   const cleanedSummary = useMemo(
@@ -24,12 +28,7 @@ const Success = ({ data }: Props) => {
         {image && (
           <Image source={{ uri: image?.original }} viewStyle={styles.poster} />
         )}
-        <LinearGradient
-          colors={["transparent", "black"]}
-          start={{ x: 0.5, y: 0 }}
-          end={{ x: 0.5, y: 0.95 }}
-          style={styles.linearGradient}
-        />
+        <View style={styles.linearGradient} />
         <View style={styles.seriesInfo}>
           <View style={styles.seriesInfoContainer}>
             <Text style={styles.seriesTitle}>{name}</Text>
@@ -43,6 +42,7 @@ const Success = ({ data }: Props) => {
           </Text>
         </View>
       </View>
+      <GoBackHeader />
     </View>
   );
 };

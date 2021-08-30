@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+import { CustomStyleSheetProps } from "@jobsity/common/types/styles";
 
-const classes = ({ screenHeight, palette }: any) => {
+const classes = ({ screenHeight, palette }: CustomStyleSheetProps) => {
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -46,6 +47,8 @@ const classes = ({ screenHeight, palette }: any) => {
       position: "absolute",
       top: 0,
       left: 0,
+      backgroundColor: palette.common.black,
+      opacity: 0.8,
     },
     seriesContainer: {
       width: "94%",
@@ -64,6 +67,13 @@ const classes = ({ screenHeight, palette }: any) => {
       padding: 12,
       justifyContent: "flex-end",
       alignItems: "flex-start",
+    },
+    noImageContainer: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
     },
     seriesInfoContainer: {
       width: "100%",

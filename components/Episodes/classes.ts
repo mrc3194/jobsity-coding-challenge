@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+import { CustomStyleSheetProps } from "@jobsity/common/types/styles";
 
-const classes = ({ screenHeight, palette }: any) => {
+const classes = ({ screenHeight, palette }: CustomStyleSheetProps) => {
   return StyleSheet.create({
     container: {
       width: "100%",
@@ -11,20 +12,20 @@ const classes = ({ screenHeight, palette }: any) => {
     },
     seasonSelector: {
       borderRadius: 1000,
-      paddingHorizontal: 12,
-      paddingVertical: 4,
+      paddingHorizontal: 16,
+      paddingVertical: 6,
       marginRight: 6,
-      backgroundColor: palette.common.white,
+      backgroundColor: palette.main.extra,
     },
     seasonSelected: {
-      backgroundColor: "blue",
+      backgroundColor: palette.main.primary,
     },
     seasonSelectorText: {
-      color: "black",
-      fontSize: 18,
+      color: palette.common.black,
+      fontSize: 16,
     },
     seasonSelectedText: {
-      color: palette.common.white,
+      color: palette.text.primary,
     },
     contentContainer: {
       paddingVertical: 18,
@@ -44,7 +45,7 @@ const classes = ({ screenHeight, palette }: any) => {
       paddingHorizontal: 12,
       borderRadius: 8,
       marginBottom: 8,
-      backgroundColor: palette.common.black,
+      backgroundColor: palette.main.accent,
     },
     episodeText: {
       color: palette.common.white,

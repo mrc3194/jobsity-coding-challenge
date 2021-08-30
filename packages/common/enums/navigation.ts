@@ -1,7 +1,8 @@
 export enum NAVIGATIONSTACKS {
   HOME = "HomeStack",
   SEARCH = "SearchStack",
-  SETTINGS = "Settings",
+  SAVEDSERIES = "SavedSeriesStack",
+  SETTINGS = "SettingsStack",
 }
 
 export enum NAVIGATIONSCREENS {
@@ -11,4 +12,5 @@ export enum NAVIGATIONSCREENS {
   SERIES = "Series",
   SEARCH = "Search",
   PERSON = "Person",
+  SAVEDSERIES = "SavedSeries",
 }

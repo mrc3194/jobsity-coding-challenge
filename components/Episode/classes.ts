@@ -5,12 +5,11 @@ const classes = ({ screenHeight, palette }: CustomStyleSheetProps) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#222",
+      backgroundColor: palette.main.primary,
     },
     posterContainer: {
       width: "100%",
       height: "100%",
-      backgroundColor: "red",
       justifyContent: "flex-end",
       alignItems: "center",
     },
@@ -25,6 +24,8 @@ const classes = ({ screenHeight, palette }: CustomStyleSheetProps) => {
       position: "absolute",
       top: 0,
       left: 0,
+      backgroundColor: palette.common.black,
+      opacity: 0.7,
     },
     seriesInfo: {
       width: "100%",
@@ -53,6 +54,22 @@ const classes = ({ screenHeight, palette }: CustomStyleSheetProps) => {
     summary: {
       color: palette.common.white,
       marginTop: 12,
+    },
+    backButtonContainer: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      padding: 12,
+      paddingVertical: 18,
+    },
+    backButton: {
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      alignItems: "center",
+    },
+    backButtonText: {
+      color: palette.text.primary,
+      marginLeft: 4,
     },
   });
 };

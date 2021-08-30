@@ -22,14 +22,14 @@ const themeObject: ThemeContextProps = {
       hint: "rgba(0, 0, 0, 0.12)",
     },
     main: {
-      primary: "#E50914",
-      secondary: "#221F1F",
-      accent: "#B81D24",
-      extra: "#F5F5F1",
+      primary: "#E50914", // big red
+      secondary: "#221F1F", // black
+      accent: "#B81D24", // secondary red
+      extra: "#F5F5F1", // white
     },
     button: {
-      primary: "#3551A1",
-      secondary: "#3551A1",
+      primary: "#F5F5F1", // white
+      secondary: "#B81D24", // red
       disabled: "#3551A1",
       hint: "#3551A1",
     },

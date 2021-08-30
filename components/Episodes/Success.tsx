@@ -16,6 +16,7 @@ const Success = ({ data }: any) => {
   const [currentSeason, setCurrentSeason] = useState<number>(0);
   const seasonsList = useMemo(() => data[currentSeason], [currentSeason, data]);
   const styles = useStyles(classes);
+  if (data.length === 0) return <></>;
   return (
     <View style={styles.container}>
       <View style={styles.seasonsSelectorContainer}>
@@ -28,6 +29,7 @@ const Success = ({ data }: any) => {
           {data.map((season: any, index: number) => {
             return (
               <TouchableOpacity
+                key={index}
                 style={[
                   styles.seasonSelector,
                   currentSeason === index && styles.seasonSelected,
@@ -64,6 +66,7 @@ const ListOfEpisodes = ({ episodes }: ListOfEpisodesProps) => {
     <View style={styles.listOfEpisodesContainer}>
       {episodes.map((episode: Episode, index: number) => (
         <TouchableOpacity
+          key={index}
           activeOpacity={0.8}
           style={styles.episodeContainer}
           onPress={() =>

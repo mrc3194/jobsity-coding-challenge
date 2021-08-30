@@ -1,12 +1,16 @@
 import { StyleSheet } from "react-native";
+import { CustomStyleSheetProps } from "@jobsity/common/types/styles";
 
-const classes = ({ palette }: any) => {
+const classes = ({ palette }: CustomStyleSheetProps) => {
   return StyleSheet.create({
     container: {
-      width: "80%",
+      width: "90%",
       paddingVertical: 20,
+      paddingHorizontal: 12,
       borderRadius: 8,
-      backgroundColor: palette.common.white,
+      backgroundColor: palette.main.accent,
+      justifyContent: "center",
+      alignItems: "center",
     },
     pinContainer: {
       width: "100%",
@@ -22,8 +26,8 @@ const classes = ({ palette }: any) => {
       justifyContent: "center",
       alignItems: "center",
       borderWidth: 2,
-      borderColor: "gray",
-      backgroundColor: "#ddd",
+      borderColor: palette.text.primary,
+      backgroundColor: palette.main.extra,
     },
     number: {
       color: palette.common.black,
@@ -36,6 +40,11 @@ const classes = ({ palette }: any) => {
       top: 0,
       left: 0,
       opacity: 0,
+    },
+    headerTitle: {
+      color: palette.text.primary,
+      marginBottom: 12,
+      fontSize: 16,
     },
   });
 };
