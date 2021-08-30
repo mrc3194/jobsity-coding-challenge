@@ -5,6 +5,7 @@ const classes = ({ palette }: CustomStyleSheetProps) => {
   return StyleSheet.create({
     container: {
       flex: 1,
+      paddingTop: 16,
       width: "100%",
       backgroundColor: palette.main.secondary,
       alignItems: "center",
