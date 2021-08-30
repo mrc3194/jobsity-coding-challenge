@@ -16,6 +16,7 @@ import { AuthOptions } from "../packages/common/types/auth";
 import AuthScreen from "../screens/auth";
 import useAuthContext from "@jobsity/hooks/useAuthContext";
 import SavedSeriesStack from "./stacks/savedseries";
+import TabBar from "./tabbar";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,7 @@ function NavigationStack() {
   }
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
         <Tab.Screen name={NAVIGATIONSTACKS.HOME} component={HomeStack} />
         <Tab.Screen name={NAVIGATIONSCREENS.SEARCH} component={SearchStack} />
         {/* <Tab.Screen name={NAVIGATIONSCREENS.SERIES} component={SeriesScreen} /> */}
