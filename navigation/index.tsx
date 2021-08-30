@@ -12,7 +12,7 @@ import {
 import SearchStack from "./stacks/search";
 import SavedSeriesScreen from "../screens/savedseries";
 import SettingsScreen from "../screens/settings";
-import { AuthOptions } from "../packages/common/types/auth";
+import { AuthOptions } from "@jobsity/common/types/auth";
 import AuthScreen from "../screens/auth";
 import useAuthContext from "@jobsity/hooks/useAuthContext";
 import SavedSeriesStack from "./stacks/savedseries";
