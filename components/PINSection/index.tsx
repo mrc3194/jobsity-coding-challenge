@@ -18,6 +18,7 @@ interface PINSectionProps {
   callback: Function;
   isLogin?: boolean;
   PINConfirmed?: boolean;
+  deactivating?: boolean;
 }
 
 const PINSection = ({
@@ -26,9 +27,16 @@ const PINSection = ({
   isLogin = false,
   callback,
   PINConfirmed = false,
+  deactivating = false,
 }: PINSectionProps) => {
-  const { validatePIN, optionActive, setAuthOption, setNewPIN } =
-    useAuthContext();
+  const {
+    validatePIN,
+    resetCredentials,
+    optionActive,
+    setAuthOption,
+    setNewPIN,
+    setUserSuccessAuth,
+  } = useAuthContext();
   const textInputRef = useRef<any>(null);
   const styles = useStyles(classes);
   const { isAndroid } = usePlatform();
@@ -43,6 +51,7 @@ const PINSection = ({
   );
 
   const title = useMemo(() => {
+    if (deactivating) return "Enter your PIN";
     if (!isLogin && !isPINActive && !isBIOActive) {
       return "Set new PIN";
     }
@@ -50,10 +59,31 @@ const PINSection = ({
       return "Enter your new PIN";
     }
     return "Enter your PIN";
-  }, [isLogin, isPINActive, isBIOActive, PINConfirmed]);
+  }, [isLogin, isPINActive, isBIOActive, PINConfirmed, deactivating]);
 
   useEffect(() => {
     if (PIN.length === 4) {
+      if (deactivating) {
+        const PINIsValid = validatePIN(PIN);
+        if (PINIsValid) {
+          callback({
+            code: 8,
+            message: "Your PIN was deactivated",
+            success: true,
+            error: false,
+          });
+          resetCredentials();
+          textInputRef.current?.blur();
+        } else {
+          callback({
+            code: 2,
+            message: "Incorrect PIN",
+            success: false,
+            error: true,
+          });
+        }
+        return;
+      }
       if (PINConfirmed) {
         setNewPIN(PIN);
         setAuthOption(AuthOptions.PIN);
@@ -86,6 +116,7 @@ const PINSection = ({
         }
       }
       if (!isLogin && !isPINActive && !isBIOActive) {
+        setUserSuccessAuth();
         setNewPIN(PIN);
         setAuthOption(AuthOptions.PIN);
         textInputRef.current?.blur();
@@ -97,6 +128,7 @@ const PINSection = ({
         });
       }
       if (!isLogin && !isPINActive && isBIOActive) {
+        setUserSuccessAuth();
         setNewPIN(PIN);
         setAuthOption(AuthOptions.PIN);
         textInputRef.current?.blur();
@@ -108,7 +140,7 @@ const PINSection = ({
         });
       }
     }
-  }, [PIN, PINConfirmed]);
+  }, [PIN, PINConfirmed, deactivating]);
 
   useEffect(() => {
     if (PINConfirmed) {
@@ -124,7 +156,7 @@ const PINSection = ({
 
   return (
     <View style={styles.container}>
-      <Text>{title}</Text>
+      <Text style={styles.headerTitle}>{title}</Text>
       <View style={styles.pinContainer}>
         {new Array(4).fill(null).map((_: null, index: number) => (
           <View key={index} style={styles.numberBox}>

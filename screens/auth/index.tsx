@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, Button, Text } from "react-native";
+import { SafeAreaView, View, Text } from "react-native";
 import useAuthContext from "@jobsity/hooks/useAuthContext";
 import { AuthOptions } from "@jobsity/common/types/auth";
 import PINSection from "../../components/PINSection";
 import * as LocalAuthentication from "expo-local-authentication";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import useStyles from "@jobsity/hooks/useStyles";
+import Button from "@jobsity/ui/Button";
 import classes from "./classes";
+import usePlatform from "@jobsity/hooks/usePlatform";
 
 interface PINResponse {
   code: number;
@@ -17,7 +19,8 @@ interface PINResponse {
 
 const AuthScreen = () => {
   const { optionActive, setUserSuccessAuth } = useAuthContext();
-  const [hasHardware, setHasHardware] = useState<boolean>(false);
+  const { isAndroid } = usePlatform();
+  const [hasFingerprint, setHasFingerprint] = useState<boolean>(false);
 
   const styles = useStyles(classes);
 
@@ -25,7 +28,11 @@ const AuthScreen = () => {
     const hasAuthHardware = await LocalAuthentication.hasHardwareAsync();
     const supportedAuthMethods =
       await LocalAuthentication.supportedAuthenticationTypesAsync();
-    setHasHardware(hasAuthHardware);
+    if (supportedAuthMethods.includes(1)) {
+      setHasFingerprint(hasAuthHardware);
+    } else {
+      setHasFingerprint(false);
+    }
   };
 
   const authWithBio = async () => {
@@ -57,15 +64,17 @@ const AuthScreen = () => {
   if (optionActive === AuthOptions.PIN)
     return (
       <SafeAreaView style={styles.container}>
-        {/* this button will be a ui component */}
-        <TouchableOpacity
-          style={{ padding: 20, backgroundColor: "yellow", marginTop: 12 }}
-          activeOpacity={0.6}
-          onPress={authWithBio}
-        >
-          <Text>Auth with Bio</Text>
-        </TouchableOpacity>
-        <View>
+        {isAndroid && hasFingerprint && (
+          <View style={styles.authButton}>
+            <Button
+              title="Auth with fingerprint"
+              width="90%"
+              height={52}
+              onPress={authWithBio}
+            />
+          </View>
+        )}
+        <View style={styles.PINContainer}>
           <PINSection
             PIN={PIN}
             setPin={setPIN}

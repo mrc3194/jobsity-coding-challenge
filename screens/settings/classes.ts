@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
+import { CustomStyleSheetProps } from "@jobsity/common/types/styles";
 
-const classes = ({ palette }: any) => {
+const classes = ({ palette }: CustomStyleSheetProps) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "black",
+      backgroundColor: palette.main.secondary,
     },
   });
 };
