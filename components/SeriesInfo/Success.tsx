@@ -10,6 +10,8 @@ import { Series } from "@jobsity/common/types/queries/series";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "@jobsity/ui/Icon";
 import useSavedSeries from "@jobsity/hooks/useSavedSeries";
+import NoImage from "@jobsity/ui/NoImage";
+import GoBackHeader from "@jobsity/ui/GoBackHeader";
 
 interface Props {
   data: Series;
@@ -41,13 +43,17 @@ const Success = ({ data, showId }: Props) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <View style={styles.posterContainer}>
-          {image && (
+          {image ? (
             <Image
               source={{ uri: image?.original }}
               viewStyle={styles.poster}
             />
+          ) : (
+            <View style={styles.noImageContainer}>
+              <NoImage />
+            </View>
           )}
           <LinearGradient
             colors={["transparent", "black"]}
@@ -74,6 +80,7 @@ const Success = ({ data, showId }: Props) => {
               size={32}
             />
           </TouchableOpacity>
+          <GoBackHeader />
         </View>
         <Text style={styles.headerText}>Genres</Text>
         <View style={styles.genresScrollViewContainer}>
@@ -110,8 +117,10 @@ const Days = ({ days }: Days) => {
   return (
     <View style={styles.daysContainer}>
       {days?.map((day: string) => (
-        <View style={styles.dayContainer}>
-          <Text style={styles.day}>{day.substr(0, 3)}</Text>
+        <View key={day} style={styles.dayContainer}>
+          <Text style={styles.day}>
+            {days.length > 3 ? day.substr(0, 3) : day}
+          </Text>
         </View>
       ))}
     </View>

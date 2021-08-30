@@ -12,6 +12,8 @@ import {
 } from "@jobsity/common/types/queries/series";
 import { useNavigation } from "@react-navigation/native";
 import { NAVIGATIONSCREENS } from "@jobsity/common/enums/navigation";
+import NoImage from "@jobsity/ui/NoImage";
+import GoBackHeader from "@jobsity/ui/GoBackHeader";
 
 interface Props {
   data: PersonInfo[];
@@ -41,15 +43,14 @@ const Success = ({ data, name, image }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.posterContainer}>
-        {image && (
+        {image ? (
           <Image source={{ uri: image?.original }} viewStyle={styles.poster} />
+        ) : (
+          <View style={styles.noImageContainer}>
+            <NoImage />
+          </View>
         )}
-        <LinearGradient
-          colors={["transparent", "black"]}
-          start={{ x: 0.5, y: 0 }}
-          end={{ x: 0.5, y: 0.95 }}
-          style={styles.linearGradient}
-        />
+        <View style={styles.linearGradient} />
         <View style={styles.seriesInfo}>
           <View style={styles.seriesInfoContainer}>
             <Text numberOfLines={3} style={styles.seriesTitle}>
@@ -57,6 +58,7 @@ const Success = ({ data, name, image }: Props) => {
             </Text>
           </View>
         </View>
+        <GoBackHeader />
       </View>
       {data.length === 0 ? (
         <View style={styles.noSeriesListedContainer}>
@@ -71,7 +73,7 @@ const Success = ({ data, name, image }: Props) => {
             style={styles.flatListStyle}
             data={data}
             renderItem={renderItem}
-            keyExtractor={(item: any) => item._embedded.show.id}
+            keyExtractor={(item: any) => String(item._embedded.show.id)}
           />
         </View>
       )}
