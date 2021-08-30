@@ -21,8 +21,8 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import useDimensions from "../../packages/hooks/useDimensions";
-import useTheme from "../../packages/hooks/useTheme";
+import useDimensions from "@jobsity/hooks/useDimensions";
+import useTheme from "@jobsity/hooks/useTheme";
 
 const SearchScreen = () => {
   const [firstSearchHappened, setFirstSearchHappened] =

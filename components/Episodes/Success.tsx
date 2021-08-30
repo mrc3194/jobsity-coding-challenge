@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
-import { Episode } from "../../packages/common/types/queries/episodes";
+import { Episode } from "@jobsity/common/types/queries/episodes";
 import { useNavigation } from "@react-navigation/native";
-import { NAVIGATIONSCREENS } from "../../packages/common/enums/navigation";
+import { NAVIGATIONSCREENS } from "@jobsity/common/enums/navigation";
 
 const Success = ({ data }: any) => {
   const [currentSeason, setCurrentSeason] = useState<number>(0);

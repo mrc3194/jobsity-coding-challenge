@@ -5,7 +5,7 @@ import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
 import Icon from "@jobsity/ui/Icon";
 import useTheme from "@jobsity/hooks/useTheme";
-import { IconsNames } from "../../packages/common/types/icons";
+import { IconsNames } from "@jobsity/common/types/icons";
 // import NavigationIcon from './navigationIcon';
 
 const { width } = Dimensions.get("window");

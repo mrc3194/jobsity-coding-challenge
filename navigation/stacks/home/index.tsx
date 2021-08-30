@@ -1,10 +1,9 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../../../screens/home";
-import SearchScreen from "../../../screens/search";
 import SeriesScreen from "../../../screens/series";
 import EpisodeScreen from "../../../screens/episode";
-import { NAVIGATIONSCREENS } from "../../../packages/common/enums/navigation";
+import { NAVIGATIONSCREENS } from "@jobsity/common/enums/navigation";
 import PersonScreen from "../../../screens/person";
 
 const Stack = createStackNavigator();

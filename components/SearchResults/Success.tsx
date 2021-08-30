@@ -6,7 +6,7 @@ import SeriesInfoPoster from "@jobsity/ui/SeriesInfoPoster";
 import { Search } from "@jobsity/common/types/queries/search";
 import { Series } from "@jobsity/common/types/queries/series";
 import { useNavigation } from "@react-navigation/native";
-import { NAVIGATIONSCREENS } from "../../packages/common/enums/navigation";
+import { NAVIGATIONSCREENS } from "@jobsity/common/enums/navigation";
 import { Person, PersonSearch } from "@jobsity/common/types/queries/person";
 
 interface SuccessProps<T> {
