@@ -1,6 +1,8 @@
 # Jobsity Coding Challenge
 
-To develop this project I used, React Native, Expo, Typescript. [Vide Demo](https://www.youtube.com/watch?v=3JsSFNwYb1c&ab_channel=MannyRuiz)
+To develop this project I used, React Native, Expo, Typescript.
+[Video Demo](https://www.youtube.com/watch?v=3JsSFNwYb1c&ab_channel=MannyRuiz)
+[Fingerprint Auth Video Demo](https://www.youtube.com/watch?v=_Pm2JsSEacc&ab_channel=MannyRuiz)
 
 ## Installation
 
