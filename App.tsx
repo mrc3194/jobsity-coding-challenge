@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View, LogBox } from "react-native";
+import { Button, StyleSheet, StatusBar, LogBox } from "react-native";
 import ThemeProvider from "@jobsity/common/ThemeContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import NavigationStack from "./navigation";
@@ -20,6 +19,7 @@ export default function App() {
           <SavedSeriesProvider>
             <ThemeProvider>
               <NavigationStack />
+              <StatusBar barStyle="light-content" />
             </ThemeProvider>
           </SavedSeriesProvider>
         </InfiniteScrollSettingsProvider>
