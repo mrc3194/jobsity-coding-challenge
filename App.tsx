@@ -10,6 +10,8 @@ import InfiniteScrollSettingsProvider from "@jobsity/common/InfiniteSettingsCont
 const queryClient = new QueryClient();
 
 LogBox.ignoreLogs(["Setting a timer"]);
+LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default function App() {
   return (
