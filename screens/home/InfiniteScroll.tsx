@@ -8,7 +8,7 @@ import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
 import { useInfiniteQuery } from "react-query";
 
-const InfiniteQuery = () => {
+const InfiniteScroll = () => {
   const fetchSeries = async ({ pageParam = 0 }) => {
     const res = await fetch(`https://api.tvmaze.com/shows?page=${pageParam}`);
     return res.json();
@@ -38,4 +38,4 @@ const InfiniteQuery = () => {
   );
 };
 
-export default InfiniteQuery;
+export default InfiniteScroll;

@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import NavigationStack from "./navigation";
 import SavedSeriesProvider from "@jobsity/common/SavedSeriesContext";
 import AuthProvider from "@jobsity/common/AuthContext";
+import InfiniteScrollSettingsProvider from "@jobsity/common/InfiniteSettingsContext";
 
 const queryClient = new QueryClient();
 
@@ -15,11 +16,13 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <SavedSeriesProvider>
-          <ThemeProvider>
-            <NavigationStack />
-          </ThemeProvider>
-        </SavedSeriesProvider>
+        <InfiniteScrollSettingsProvider>
+          <SavedSeriesProvider>
+            <ThemeProvider>
+              <NavigationStack />
+            </ThemeProvider>
+          </SavedSeriesProvider>
+        </InfiniteScrollSettingsProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
