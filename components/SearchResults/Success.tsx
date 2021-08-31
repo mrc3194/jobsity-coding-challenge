@@ -109,8 +109,12 @@ const Success = ({
             columnWrapperStyle={styles.wrapper}
             renderItem={renderItem}
             data={dataForFlatList}
-            keyExtractor={(item): string => {
-              return String(searchResults ? item.show.id : item.id);
+            keyExtractor={(item, index: number): string => {
+              return String(
+                searchResults
+                  ? String(item.show.id) + String(index)
+                  : String(item.id) + String(index)
+              );
             }}
             style={styles.scrollView}
             contentContainerStyle={styles.contentContainer}
