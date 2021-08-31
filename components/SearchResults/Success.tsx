@@ -1,5 +1,11 @@
-import React, { useMemo } from "react";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import React, { Dispatch, SetStateAction, useMemo } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
 import SeriesInfoPoster from "@jobsity/ui/SeriesInfoPoster";
@@ -8,12 +14,17 @@ import { Series } from "@jobsity/common/types/queries/series";
 import { useNavigation } from "@react-navigation/native";
 import { NAVIGATIONSCREENS } from "@jobsity/common/enums/navigation";
 import { Person, PersonSearch } from "@jobsity/common/types/queries/person";
+import useTheme from "@jobsity/hooks/useTheme";
 
 interface SuccessProps<T> {
-  data: T[];
+  data: T;
   searchResults?: boolean;
   personResults?: boolean;
   isFlatList?: boolean;
+  page?: number;
+  isInfinite?: boolean;
+  isFetching?: boolean;
+  setPage?: Dispatch<SetStateAction<number>>;
 }
 
 const Success = ({
@@ -21,8 +32,14 @@ const Success = ({
   searchResults = false,
   personResults = false,
   isFlatList = true,
+  setPage = () => {},
+  page = 0,
+  isInfinite = false,
+  isFetching = false,
+  ...rest
 }: SuccessProps<any>) => {
   const { navigate } = useNavigation();
+  const { palette } = useTheme();
   const styles = useStyles(classes);
   if (data.length === 0) {
     return (
@@ -31,7 +48,6 @@ const Success = ({
       </View>
     );
   }
-
   const goToSeries = (showId: number) => {
     navigate(NAVIGATIONSCREENS.SERIES, { showId });
   };
@@ -78,23 +94,43 @@ const Success = ({
     );
   };
 
+  const dataForFlatList = useMemo(() => {
+    if (isInfinite) {
+      return data.pages.flat();
+    }
+    return data;
+  }, [isInfinite, data]);
+
   if (isFlatList) {
     return (
-      <View style={styles.successContainer}>
-        <FlatList
-          columnWrapperStyle={styles.wrapper}
-          renderItem={renderItem}
-          data={data}
-          keyExtractor={(item): string => {
-            return String(searchResults ? item.show.id : item.id);
-          }}
-          style={styles.scrollView}
-          contentContainerStyle={styles.contentContainer}
-          scrollEventThrottle={16}
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-        />
-      </View>
+      <React.Fragment>
+        <View style={styles.successContainer}>
+          <FlatList
+            columnWrapperStyle={styles.wrapper}
+            renderItem={renderItem}
+            data={dataForFlatList}
+            keyExtractor={(item): string => {
+              return String(searchResults ? item.show.id : item.id);
+            }}
+            style={styles.scrollView}
+            contentContainerStyle={styles.contentContainer}
+            scrollEventThrottle={16}
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            onEndReachedThreshold={0}
+            onEndReached={() => {
+              if (!isFetching) {
+                setPage((prevPage) => prevPage + 1);
+              }
+            }}
+          />
+        </View>
+        {isFetching && (
+          <View style={styles.loaderContainer}>
+            <ActivityIndicator color={palette.main.primary} size="small" />
+          </View>
+        )}
+      </React.Fragment>
     );
   }
   return (

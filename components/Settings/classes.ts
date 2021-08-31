@@ -11,9 +11,23 @@ const classes = ({ palette }: CustomStyleSheetProps) => {
       alignItems: "center",
     },
     headerTitle: {
-      fontSize: 22,
+      fontSize: 28,
       color: palette.common.white,
       paddingLeft: 12,
+      width: "100%",
+      textAlign: "left",
+      fontWeight: "700",
+      paddingBottom: 18,
+    },
+    row: {
+      width: "100%",
+      flexDirection: "row",
+      paddingHorizontal: 12,
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    label: {
+      color: palette.text.secondary,
     },
     activePINContainer: {
       width: "100%",

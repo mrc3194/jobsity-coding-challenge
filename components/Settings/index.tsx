@@ -6,6 +6,8 @@ import useAuthContext from "@jobsity/hooks/useAuthContext";
 import { AuthOptions } from "@jobsity/common/types/auth";
 import PINSection from "../PINSection";
 import Button from "@jobsity/ui/Button";
+import useInfiniteScrollSettings from "@jobsity/hooks/useInfiniteScrollSettings";
+import { Switch } from "react-native-gesture-handler";
 
 interface OnPinComplete {
   code: number;
@@ -16,6 +18,7 @@ interface OnPinComplete {
 
 const Settings: React.FC = () => {
   const { optionActive } = useAuthContext();
+  const { infiniteScrollActive, setValue } = useInfiniteScrollSettings();
   const [activePINSection, setActivePINSection] = useState<boolean>(false);
   const [newPIN, setNewPIN] = useState<string>("");
   const [PINConfirmed, setPinConfirmed] = useState<boolean>(false);
@@ -86,6 +89,7 @@ const Settings: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.headerTitle}>Settings</Text>
       {!activePINSection && (
         <Button
           title={isPINActive ? "Change PIN" : "Active PIN"}
@@ -120,6 +124,16 @@ const Settings: React.FC = () => {
           />
         </View>
       )}
+      <Text style={[styles.headerTitle, { fontSize: 18, marginTop: 12 }]}>
+        Home Page
+      </Text>
+      <View style={styles.row}>
+        <Text style={styles.label}>Use Infinite Scroll</Text>
+        <Switch
+          onValueChange={(value: boolean) => setValue(value)}
+          value={infiniteScrollActive}
+        />
+      </View>
     </View>
   );
 };
