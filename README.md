@@ -5,7 +5,7 @@ To develop this project I used, React Native, Expo, Typescript.
 ## Installation
 
 To install the node modules of this project, you nedd yarn package manager as this project use yarn workspaces.
-And also you need expo installed in your machine. (Expo installation documentation) [https://docs.expo.dev/get-started/installation/]
+And also you need expo installed in your machine. [Expo installation documentation](https://docs.expo.dev/get-started/installation/)
 If you don't have an emulator (iOS/Android) on your machinge you will need the Expo Go app installed in your mobile device
 
 ```bash
