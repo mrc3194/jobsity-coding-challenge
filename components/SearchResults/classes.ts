@@ -56,6 +56,12 @@ const classes = ({ palette }: CustomStyleSheetProps) => {
       fontSize: 18,
       fontWeight: "500",
     },
+    loaderContainer: {
+      width: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+      paddingVertical: 24,
+    },
   });
 };
 

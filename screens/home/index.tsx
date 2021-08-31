@@ -6,8 +6,10 @@ import Button from "@jobsity/ui/Button";
 import useTheme from "@jobsity/hooks/useTheme";
 import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
+import InfiniteQuery from "./InfiniteQuery";
 
 const HomeScreen = () => {
+  return <InfiniteQuery />;
   const [page, setPage] = useState<number>(0);
   const query = useFetchSeries(page);
   const { palette } = useTheme();

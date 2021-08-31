@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import useStyles from "@jobsity/hooks/useStyles";
 import classes from "./classes";
@@ -13,13 +13,16 @@ interface SearchResultsProps {
   searchResults?: boolean;
   personResults?: boolean;
   isFlatList?: boolean;
+  isInfinite?: boolean;
+  setPage?: Dispatch<SetStateAction<number>>;
+  page?: number;
 }
 
 const SearchResults = ({
   query,
   searchResults = false,
   personResults = false,
-  isFlatList = true,
+  ...rest
 }: SearchResultsProps) => {
   return (
     <ResultQuery
@@ -28,7 +31,7 @@ const SearchResults = ({
       Loading={Loading}
       searchResults={searchResults}
       personResults={personResults}
-      isFlatList={isFlatList}
+      {...rest}
     />
   );
 };
