@@ -129,7 +129,7 @@ const Success = ({
             }}
           />
         </View>
-        {isFetching && (
+        {isFetching && isInfinite && (
           <View style={styles.loaderContainer}>
             <ActivityIndicator color={palette.main.primary} size="small" />
           </View>
